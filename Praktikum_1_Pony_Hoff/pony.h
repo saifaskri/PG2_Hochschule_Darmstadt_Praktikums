@@ -14,11 +14,12 @@ class Pony
 {
 public:
     Pony();
+    Pony(string name,int gebutsJahr);
     string gibName();
     int gibgebutsJahr();
     void setzePos(const Position&);
     bool istReitbar(int x) ;
-    void zeigeInfo();
+    virtual void zeigeInfo() ;
 
 protected:
     int gebutsJahr;

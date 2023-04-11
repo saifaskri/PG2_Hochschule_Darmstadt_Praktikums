@@ -7,11 +7,12 @@
 
 using namespace std;
 
-class Ponyhof
+class Ponyhof : public Stall
 {
 public:
     Ponyhof();
     void userDialog();
+    void ponyAnlegen();
 private:
     Stall stallung;
     vector<Pony*> beimReiten;

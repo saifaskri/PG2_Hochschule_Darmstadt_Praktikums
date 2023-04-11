@@ -8,6 +8,7 @@ class Shetlandpony : public Pony
 {
 public:
     Shetlandpony();
+    Shetlandpony(string NAME,int Geb,  bool K_lieb);
     bool istKinderlieb();
     bool isReitbar(int x);
     void zeigeInfo();

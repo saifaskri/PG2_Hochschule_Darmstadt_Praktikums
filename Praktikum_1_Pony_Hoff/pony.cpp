@@ -4,6 +4,11 @@ Pony::Pony():ort(0,0){
 
 }
 
+Pony::Pony(string name, int gebutsJahr):gebutsJahr(gebutsJahr),name(name),ort(0,0)
+{
+
+}
+
 string Pony::gibName()
 {
     return name;
