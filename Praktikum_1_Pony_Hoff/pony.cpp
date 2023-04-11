@@ -1,8 +1,6 @@
 #include "pony.h"
 
-Pony::Pony():ort(0,0)
-{
-
+Pony::Pony():ort(0,0){
 
 }
 

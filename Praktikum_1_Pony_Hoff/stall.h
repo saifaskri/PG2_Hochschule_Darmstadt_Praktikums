@@ -3,7 +3,7 @@
 
 
 #include "pony.h"
-#define SIZE  5
+#define SIZE  20
 
 class Stall
 {

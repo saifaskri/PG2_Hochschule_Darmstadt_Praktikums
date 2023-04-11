@@ -1,4 +1,5 @@
 #include <iostream>
+#include "ponyhof.h"
 
 using namespace std;
 
@@ -20,7 +21,11 @@ int main()
 {
     unsigned NumberHufe = 0;
     NumberHufe = ponyHufe(7);
-
     cout << NumberHufe<< endl;
+
+    Ponyhof p;
+    p.userDialog();
+
+
     return 0;
 }
