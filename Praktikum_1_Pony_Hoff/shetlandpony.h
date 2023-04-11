@@ -2,7 +2,9 @@
 #define SHETLANDPONY_H
 
 
-class Shetlandpony
+#include "pony.h"
+
+class Shetlandpony : public Pony
 {
 public:
     Shetlandpony();

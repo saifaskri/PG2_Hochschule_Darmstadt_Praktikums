@@ -1,8 +1,9 @@
 #ifndef ISLANDPFERD_H
 #define ISLANDPFERD_H
 
+#include "pony.h"
 
-class Islandpferd
+class Islandpferd : public Pony
 {
 public:
     Islandpferd();
