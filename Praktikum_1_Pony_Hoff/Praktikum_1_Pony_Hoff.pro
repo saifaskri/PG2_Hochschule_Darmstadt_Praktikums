@@ -4,4 +4,16 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += \
-        main.cpp
+        islandpferd.cpp \
+        main.cpp \
+        pony.cpp \
+        ponyhof.cpp \
+        shetlandpony.cpp \
+        stall.cpp
+
+HEADERS += \
+    islandpferd.h \
+    pony.h \
+    ponyhof.h \
+    shetlandpony.h \
+    stall.h
