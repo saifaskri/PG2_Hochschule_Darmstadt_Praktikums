@@ -14,7 +14,7 @@ public:
     Stall();
     int belegteBoxen();
     bool einstellen(Pony*);
-    Pony* herausholen(string s);
+    Pony* herausholen(string name);
     float durchschnittsalter();
     void weidegang();
     void zeigeInfo();

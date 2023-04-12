@@ -4,7 +4,7 @@
 #include <iostream>
 #include "stall.h"
 #include <vector>
-
+#include <fstream>
 using namespace std;
 
 class Ponyhof : public Stall
@@ -13,6 +13,7 @@ public:
     Ponyhof();
     void userDialog();
     void ponyAnlegen();
+    void ponyHolen(string name);
 private:
     Stall stallung;
     vector<Pony*> beimReiten;

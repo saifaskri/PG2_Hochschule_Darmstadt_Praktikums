@@ -14,17 +14,24 @@ int Stall::belegteBoxen()
 
 bool Stall::einstellen(Pony *p)
 {
-    if(getPferdeboxen_belegung() == SIZE){
+    if(getPferdeboxen_belegung() == SIZE - 1){
        return false;
     }
+
     pferdeboxen[getPferdeboxen_belegung()] = p;
     setPferdeboxen_belegung(getPferdeboxen_belegung()+1);
     return true;
 }
 
-Pony *Stall::herausholen(string s)
+Pony *Stall::herausholen(string name)
 {
+    for (int i = 0;  i < getPferdeboxen_belegung(); i++) {
+        if (pferdeboxen[i]->gibName()==name){
+            return pferdeboxen[i];
+        }
 
+    }
+    return nullptr;
 }
 
 float Stall::durchschnittsalter()

@@ -2,8 +2,83 @@
 #include "islandpferd.h"
 #include "shetlandpony.h"
 
+
+
+vector<string> explode(string x,char seperator=' '){
+    string word="";
+    vector<string> v;
+    for (size_t i = 0; i < x.length(); ++i) {
+
+
+        if(x[i]!=seperator){
+            word += x[i];
+        }else{
+            v.push_back(word);
+            word="";
+        }
+    }
+    v.push_back(word);
+    return v;
+}
+
 Ponyhof::Ponyhof()
 {
+//    ofstream myfile;
+//    myfile.open ("ponys.txt", ios::out | ios::app | ios::binary);
+
+    char YesNo;
+    bool YesNo_bool;
+    int Geburtsjahr;
+    string Name;
+    string Rasse;
+    vector<string> Attribute;
+    int zaehler;
+    string line;
+    bool gespeichert;
+
+    ifstream myfile ("C:\\Users\\saifa\\Desktop\\Hochschule\\PG2_Hochschule_Darmstadt_Praktikums\\Praktikum_1_Pony_Hoff\\ponys.txt");
+    if (myfile.is_open()){
+    while ( getline (myfile,line) ){
+      Attribute = explode(line);
+
+      zaehler = -1;
+      for (size_t i = 0; i < Attribute.size(); i++) {
+
+                Rasse = Attribute[i];
+                Name = Attribute[i+1];
+                Geburtsjahr = stoi (Attribute[i+2]);
+                YesNo =  Attribute[i+3][0];
+                if(YesNo=='N'||YesNo=='n'){
+                    YesNo_bool=false;
+                }else if (YesNo=='Y'||YesNo=='y'){
+                    YesNo_bool = true;
+                }else{
+                    cout<<"Fehler steht in File"<<endl;
+                    return;
+                }
+                i+=4;
+
+
+                if(Rasse=="Islandpferd"){
+                    Pony *Isi = new Islandpferd(Name,Geburtsjahr,YesNo_bool);
+                    gespeichert = einstellen(Isi);
+                }else if(Rasse=="Shetlandpony"){
+                    Pony *Shetty= new Shetlandpony(Name,Geburtsjahr,YesNo_bool);
+                    gespeichert= einstellen(Shetty);
+
+                }
+
+                if(gespeichert==true){
+                    cout<<"Pony wurde eingefuegt"<<endl;
+                }else{
+                    cout<<"Leider Voll"<<endl;
+                }
+      }
+    }
+    myfile.close();
+    }
+
+    else cout << "Unable to open file"<<endl;
 
 }
 
@@ -71,6 +146,18 @@ void Ponyhof::ponyAnlegen(){
 
 }
 
+void Ponyhof::ponyHolen(string name)
+{
+    Pony* p = herausholen(name);
+    if(p==nullptr){
+        cout<<"Pony wurde nicht gefunden"<<endl;
+    }else{
+        cout<<p->gibgebutsJahr()<<endl;
+
+    }
+
+}
+
 
 
 void Ponyhof::userDialog()
@@ -81,7 +168,7 @@ void Ponyhof::userDialog()
         cout<<"1 Pony einstellen"<<endl;
         cout<<"2 Pony zum Reiten holen"<<endl;
         cout<<"3 Ponys kontrollieren"<<endl;
-        //cout<<"4 Ponys ausgeben"<<endl;
+        cout<<"4 Ponys ausgeben"<<endl;
         cout<<"0 Programm beenden"<<endl;
         cin>>WHAL;
         switch (WHAL) {
@@ -94,9 +181,9 @@ void Ponyhof::userDialog()
         case 3:
 
             break;
-//        case 4:
-//            zeigeInfo();
-//            break;
+        case 4:
+            zeigeInfo();
+            break;
         case 0:
             exit(0);
             break;

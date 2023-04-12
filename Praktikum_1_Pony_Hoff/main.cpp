@@ -23,8 +23,8 @@ int main()
     NumberHufe = ponyHufe(7);
     cout << NumberHufe<< endl;
 
-    Ponyhof p;
-    p.userDialog();
+    Ponyhof *p = new Ponyhof();
+    p->userDialog();
 
 
     return 0;

@@ -1,6 +1,7 @@
 #ifndef PONY_H
 #define PONY_H
 #include <iostream>
+
 using namespace std;
 
 struct Position
