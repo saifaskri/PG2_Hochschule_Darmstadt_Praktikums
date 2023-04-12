@@ -149,11 +149,13 @@ void Ponyhof::ponyAnlegen(){
 void Ponyhof::ponyHolen(string name)
 {
     Pony* p = herausholen(name);
+
+
     if(p!=nullptr){
+
         cout<<"Name des zu holenden Ponys: "<<p->gibName()<<endl;
         cout<<"Pony wird geritten"<<endl;
-    }else{
-        cout<<"Pony wurde nicht gefunden"<<endl;
+
     }
 
 }

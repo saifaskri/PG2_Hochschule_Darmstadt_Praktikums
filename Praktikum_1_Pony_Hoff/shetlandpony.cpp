@@ -24,3 +24,5 @@ void Shetlandpony::zeigeInfo()
 {
 
 }
+
+
