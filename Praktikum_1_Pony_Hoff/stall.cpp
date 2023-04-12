@@ -25,9 +25,14 @@ bool Stall::einstellen(Pony *p)
 
 Pony *Stall::herausholen(string name)
 {
+    Pony* p;
     for (int i = 0;  i < getPferdeboxen_belegung(); i++) {
-        if (pferdeboxen[i]->gibName()==name){
-            return pferdeboxen[i];
+        if(pferdeboxen[i]!=nullptr){
+            if (pferdeboxen[i]->gibName()==name){
+                p = pferdeboxen[i];
+                pferdeboxen[i]=nullptr;
+                return p;
+            }
         }
 
     }

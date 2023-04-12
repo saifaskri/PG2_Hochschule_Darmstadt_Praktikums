@@ -5,6 +5,7 @@
 #include "stall.h"
 #include <vector>
 #include <fstream>
+
 using namespace std;
 
 class Ponyhof : public Stall
@@ -14,6 +15,7 @@ public:
     void userDialog();
     void ponyAnlegen();
     void ponyHolen(string name);
+    vector<string> explode(string x,char seperator=' ');
 private:
     Stall stallung;
     vector<Pony*> beimReiten;

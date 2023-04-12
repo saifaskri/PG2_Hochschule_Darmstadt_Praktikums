@@ -4,7 +4,7 @@
 
 
 
-vector<string> explode(string x,char seperator=' '){
+vector<string> Ponyhof::explode(string x,char seperator){
     string word="";
     vector<string> v;
     for (size_t i = 0; i < x.length(); ++i) {
@@ -149,11 +149,11 @@ void Ponyhof::ponyAnlegen(){
 void Ponyhof::ponyHolen(string name)
 {
     Pony* p = herausholen(name);
-    if(p==nullptr){
-        cout<<"Pony wurde nicht gefunden"<<endl;
+    if(p!=nullptr){
+        cout<<"Name des zu holenden Ponys: "<<p->gibName()<<endl;
+        cout<<"Pony wird geritten"<<endl;
     }else{
-        cout<<p->gibgebutsJahr()<<endl;
-
+        cout<<"Pony wurde nicht gefunden"<<endl;
     }
 
 }
@@ -163,7 +163,8 @@ void Ponyhof::ponyHolen(string name)
 void Ponyhof::userDialog()
 {
     int WHAL;
-
+    string name;
+    Pony *p;
     while(true){
         cout<<"1 Pony einstellen"<<endl;
         cout<<"2 Pony zum Reiten holen"<<endl;
@@ -176,7 +177,9 @@ void Ponyhof::userDialog()
             ponyAnlegen();
             break;
         case 2:
-
+            cout<<"Geben Sie den Name des Ponys ein!"<<endl;
+            cin>>name;
+            ponyHolen(name);
             break;
         case 3:
 
