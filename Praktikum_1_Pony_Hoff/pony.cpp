@@ -40,8 +40,6 @@ bool Pony::istReitbar(int x)
        }
     }else if((Shet=dynamic_cast<Shetlandpony*>(this))){
 
-
-
         //ist Reitbar
         if(x>=5 && x<=12){
             //KinderLieb

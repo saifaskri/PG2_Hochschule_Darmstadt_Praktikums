@@ -4,7 +4,9 @@
 
 Stall::Stall()
 {
-
+    for (int i = 0; i < SIZE; ++i) {
+        pferdeboxen[i]=nullptr;
+    }
 }
 
 int Stall::belegteBoxen()
@@ -31,6 +33,7 @@ Pony *Stall::herausholen(string name)
         if(pferdeboxen[i]!=nullptr){
             if (pferdeboxen[i]->gibName()==name){
                 p = pferdeboxen[i];
+
                 int alt;
                 cout<<"Alter des Reiters: "<<endl;
                 cin>>alt;

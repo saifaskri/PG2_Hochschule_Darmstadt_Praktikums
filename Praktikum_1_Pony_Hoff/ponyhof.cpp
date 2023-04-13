@@ -150,11 +150,11 @@ void Ponyhof::ponyHolen(string name)
 {
     Pony* p = herausholen(name);
 
-
     if(p!=nullptr){
 
         cout<<"Name des zu holenden Ponys: "<<p->gibName()<<endl;
         cout<<"Pony wird geritten"<<endl;
+        beimReiten.push_back(p);
 
     }
 
