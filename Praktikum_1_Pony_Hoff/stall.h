@@ -1,7 +1,7 @@
 #ifndef STALL_H
 #define STALL_H
 
-
+#include <ctime>
 
 
 #include "pony.h"
@@ -18,6 +18,7 @@ public:
     float durchschnittsalter();
     void weidegang();
     void zeigeInfo();
+    int berechneJahr();
 
     int getPferdeboxen_belegung() const;
     void setPferdeboxen_belegung(int newPferdeboxen_belegung);

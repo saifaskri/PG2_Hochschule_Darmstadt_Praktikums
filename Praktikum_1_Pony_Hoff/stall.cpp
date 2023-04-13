@@ -60,7 +60,13 @@ Pony *Stall::herausholen(string name)
 
 float Stall::durchschnittsalter()
 {
+    float Durchschnittsalter = 0.0;
 
+    for (int i = 0;  i < getPferdeboxen_belegung(); i++) {
+        Durchschnittsalter+= berechneJahr() -pferdeboxen[i]->gibgebutsJahr();
+    }
+
+    return Durchschnittsalter/getPferdeboxen_belegung();
 }
 
 void Stall::weidegang()
@@ -84,6 +90,7 @@ void Stall::zeigeInfo()
     Islandpferd *Isl;
     Shetlandpony *shet;
     cout<<line<<endl;
+    cout<<endl;
     for (int i = 0;  i < getPferdeboxen_belegung(); i++) {
         if ((Isl = dynamic_cast<Islandpferd*>(pferdeboxen[i]))){
             cout<<"Islandpferd"<<gap;
@@ -100,9 +107,17 @@ void Stall::zeigeInfo()
         }
 
     }
+    cout<<endl;
+    cout<<"Durchschnittsalter ist "<<durchschnittsalter()<<endl;
+    cout<<endl;
     cout<<line<<endl;
+}
 
-
+int Stall::berechneJahr()
+{
+    time_t seconds = time(NULL);
+    //cout<<(seconds/(3600*24*365,25))<<endl;
+    return 2023;
 }
 
 int Stall::getPferdeboxen_belegung() const
