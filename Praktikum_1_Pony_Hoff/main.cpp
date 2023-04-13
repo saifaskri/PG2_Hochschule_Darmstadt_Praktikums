@@ -19,9 +19,9 @@ int ponyHufe( unsigned numPonys){
 
 int main()
 {
-    unsigned NumberHufe = 0;
-    NumberHufe = ponyHufe(7);
-    cout << NumberHufe<< endl;
+    unsigned NumberHufen = 0;
+    NumberHufen = ponyHufe(7);
+    cout << NumberHufen<< endl;
 
     Ponyhof *p = new Ponyhof();
     p->userDialog();

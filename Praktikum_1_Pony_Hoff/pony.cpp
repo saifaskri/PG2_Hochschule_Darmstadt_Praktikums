@@ -36,6 +36,7 @@ bool Pony::istReitbar(int x)
        if(x<=10){
            return true;
        }else{
+           cout<<"Islandpferd Alt muss unter 10 sein"<<endl;
            return false;
        }
     }else if((Shet=dynamic_cast<Shetlandpony*>(this))){
@@ -44,13 +45,13 @@ bool Pony::istReitbar(int x)
         if(x>=5 && x<=12){
             //KinderLieb
             if(x<=8 && !Shet->istKinderlieb() ){
-                cout<<"Pony ist nicht Kinderlieb für das maximal 8 jahre Alt"<<endl;
+                cout<<"Pony ist nicht Kinderlieb fuer das maximal 8 jahre Alt"<<endl;
                 return false;
-            }else if((x<=8 && Shet->istKinderlieb())||x>8){
+            }else if((x<=8 && Shet->istKinderlieb())|| x>8){
                 return true;
             }
-
         }else{
+            cout<<"Shetlandpony Alt muss zwischen  5 und 12 sein"<<endl;
             return false;
         }
     }

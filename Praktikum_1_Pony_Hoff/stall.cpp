@@ -11,7 +11,12 @@ Stall::Stall()
 
 int Stall::belegteBoxen()
 {
-
+    int PonyZahl = 0;
+    for (int i = 0; i < SIZE; ++i) {
+        if(pferdeboxen[i]!=nullptr)
+            PonyZahl++;
+    }
+    return PonyZahl;
 }
 
 bool Stall::einstellen(Pony *p)
@@ -65,30 +70,38 @@ void Stall::weidegang()
 
 void Stall::zeigeInfo()
 {
-    cout<<"okey1";
+    cout<<"es gibt "<<belegteBoxen()<<" Ponys im Stall gerade untergestellt "<<endl;
+    cout<<endl;
+    cout<<endl;
+
+    string gap="      ";
+    string line="==================================================================";
+
     if(getPferdeboxen_belegung()==0){
         cout<<"Pferdeboxen sind Leer"<<endl;
     }
 
-    cout<<getPferdeboxen_belegung()<<endl;
-    cout<<"okey2";
     Islandpferd *Isl;
     Shetlandpony *shet;
-
+    cout<<line<<endl;
     for (int i = 0;  i < getPferdeboxen_belegung(); i++) {
         if ((Isl = dynamic_cast<Islandpferd*>(pferdeboxen[i]))){
-            cout<< pferdeboxen[i]->gibName() <<endl;
-            cout<< pferdeboxen[i]->gibgebutsJahr()<<endl;
-            cout<< "Ekzemer ? "<< Isl->hatEkzem() <<endl;
+            cout<<"Islandpferd"<<gap;
+            cout<< pferdeboxen[i]->gibName()<<gap;
+            cout<< pferdeboxen[i]->gibgebutsJahr()<<gap;
+            cout<< "Ekzemer ? "<< (Isl->hatEkzem()?'y':'n') <<endl;
         }
 
         else if ((shet = dynamic_cast<Shetlandpony*>(pferdeboxen[i]))){
-            cout<< pferdeboxen[i]->gibName() <<endl;
-            cout<< pferdeboxen[i]->gibgebutsJahr() <<endl;
-            cout<< "KinderLieb ? "<< shet->istKinderlieb() <<endl;
+            cout<<"Shetlandpony"<<gap;
+            cout<< pferdeboxen[i]->gibName()<<gap;
+            cout<< pferdeboxen[i]->gibgebutsJahr()<<gap;
+            cout<< "KinderLieb ? "<< (shet->istKinderlieb()?'y':'n') <<endl;
         }
 
     }
+    cout<<line<<endl;
+
 
 }
 

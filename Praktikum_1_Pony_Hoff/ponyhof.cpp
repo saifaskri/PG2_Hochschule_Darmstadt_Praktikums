@@ -184,6 +184,10 @@ void Ponyhof::userDialog()
             ponyHolen(name);
             break;
         case 3:
+               zeigeInfo();
+               cout<<"es werden "<<beimReiten.size()<<" Ponys gerade geritten "<<endl;
+               cout<<endl;
+               cout<<endl;
 
             break;
         case 4:
