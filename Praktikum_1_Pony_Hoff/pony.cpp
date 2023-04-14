@@ -11,6 +11,11 @@ Pony::Pony(string name, int gebutsJahr):gebutsJahr(gebutsJahr),name(name),ort(0,
 
 }
 
+Pony::Pony(string name, int gebutsJahr, float x, float y)
+{
+
+}
+
 string Pony::gibName()
 {
     return name;
