@@ -15,6 +15,7 @@ public:
     void userDialog();
     void ponyAnlegen();
     void ponyHolen(string name);
+    void feierabend();
     vector<string> explode(string x,char seperator=' ');
 private:
     Stall stallung;

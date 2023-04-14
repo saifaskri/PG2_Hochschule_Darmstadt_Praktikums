@@ -116,7 +116,7 @@ void Stall::zeigeInfo()
 int Stall::berechneJahr()
 {
     time_t seconds = time(NULL);
-    //cout<<(seconds/(3600*24*365,25))<<endl;
+    cout<<(seconds/(3600*24*365,25)-1970)<<endl;
     return 2023;
 }
 

@@ -160,6 +160,26 @@ void Ponyhof::ponyHolen(string name)
 
 }
 
+void Ponyhof::feierabend()
+{
+    if(beimReiten.size()==0)
+        cout<<"Feierabend! Aber kein Pony ist beim Reiten"<<endl;
+    else
+        cout<<"Feierabend! Alle Ponys werden zurueckgebracht......"<<endl;
+
+    for (size_t i = 0; i < beimReiten.size(); ++i) {
+        if(einstellen(beimReiten[i])){
+           cout<<beimReiten[i]->gibName()<<" ist zurueck"<<endl;
+           beimReiten.erase(beimReiten.begin()+i);
+        }else
+           cout<<"Fehler beim Zurückbringen der Pony in Stall(Wahrscheinlich Boxen sind alle voll)"<<endl;
+    }
+
+    for (size_t i = 0; i < beimReiten.size(); ++i) {
+           cout<<beimReiten[i]->gibName()<<" is"<<endl;
+      }
+}
+
 
 
 void Ponyhof::userDialog()
@@ -171,7 +191,6 @@ void Ponyhof::userDialog()
         cout<<"1 Pony einstellen"<<endl;
         cout<<"2 Pony zum Reiten holen"<<endl;
         cout<<"3 Ponys kontrollieren"<<endl;
-        cout<<"4 Ponys ausgeben"<<endl;
         cout<<"0 Programm beenden"<<endl;
         cin>>WHAL;
         switch (WHAL) {
@@ -188,13 +207,10 @@ void Ponyhof::userDialog()
                cout<<"es werden "<<beimReiten.size()<<" Ponys gerade geritten "<<endl;
                cout<<endl;
                cout<<endl;
-
-            break;
-        case 4:
-            zeigeInfo();
             break;
         case 0:
-            exit(0);
+            feierabend();
+            //exit(0);
             break;
         default:
             cout<<"Ungueltige Eingabe !"<<endl;
