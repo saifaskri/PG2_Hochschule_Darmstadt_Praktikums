@@ -2,6 +2,7 @@
 #define STALL_H
 
 #include <ctime>
+#include <vector>
 
 
 #include "pony.h"
@@ -19,7 +20,7 @@ public:
     void weidegang();
     void zeigeInfo();
     int berechneJahr();
-
+    vector<Pony*> getAllPonysFromPferdBoxen();
     int getPferdeboxen_belegung() const;
     void setPferdeboxen_belegung(int newPferdeboxen_belegung);
 

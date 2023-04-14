@@ -12,6 +12,7 @@ class Ponyhof : public Stall
 {
 public:
     Ponyhof();
+    ~Ponyhof();
     void userDialog();
     void ponyAnlegen();
     void ponyHolen(string name);

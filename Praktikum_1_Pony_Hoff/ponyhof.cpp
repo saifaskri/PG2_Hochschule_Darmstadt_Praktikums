@@ -82,6 +82,39 @@ Ponyhof::Ponyhof()
 
 }
 
+Ponyhof::~Ponyhof()
+{
+    vector<Pony *> v= getAllPonysFromPferdBoxen();
+
+
+    ofstream myfile ("C:\\Users\\saifa\\Desktop\\Hochschule\\PG2_Hochschule_Darmstadt_Praktikums\\Praktikum_1_Pony_Hoff\\ponys.txt");
+    if (myfile.is_open())
+      {
+
+        Islandpferd *Isl;
+        Shetlandpony *shet;
+        for (int i = 0;  i < v.size(); i++) {
+
+            if ((Isl = dynamic_cast<Islandpferd*>(v[i]))){
+                myfile <<"Islandpferd"<<" "
+                <<v[i]->gibName()<<" "
+                <<v[i]->gibgebutsJahr()<<" "
+                <<(Isl->hatEkzem()?'y':'n')<<"\n";
+            }
+
+            else if ((shet = dynamic_cast<Shetlandpony*>(v[i]))){
+                  myfile <<"Shetlandpony"<<" "
+                  <<v[i]->gibName()<<" "
+                  <<v[i]->gibgebutsJahr()<<" "
+                  <<(shet->istKinderlieb()?'y':'n')<<"\n";
+            }
+        }
+        myfile.close();
+      }
+    else cout << "Unable to open file";
+
+}
+
 void Ponyhof::ponyAnlegen(){
 
     int rasse;
@@ -210,7 +243,8 @@ void Ponyhof::userDialog()
             break;
         case 0:
             feierabend();
-            //exit(0);
+            delete this;
+            exit(0);
             break;
         default:
             cout<<"Ungueltige Eingabe !"<<endl;

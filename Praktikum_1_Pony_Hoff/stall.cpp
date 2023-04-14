@@ -120,6 +120,16 @@ int Stall::berechneJahr()
     return 2023;
 }
 
+vector<Pony *> Stall::getAllPonysFromPferdBoxen()
+{
+    vector<Pony *> v;
+
+    for (int i = 0;  i < SIZE; i++) {
+       v.push_back(pferdeboxen[i]);
+    }
+    return v;
+}
+
 int Stall::getPferdeboxen_belegung() const
 {
     return pferdeboxen_belegung;
