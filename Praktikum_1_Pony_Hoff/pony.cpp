@@ -11,7 +11,7 @@ Pony::Pony(string name, int gebutsJahr):gebutsJahr(gebutsJahr),name(name),ort(0,
 
 }
 
-Pony::Pony(string name, int gebutsJahr, float x, float y)
+Pony::Pony(string name, int gebutsJahr, float x, float y):gebutsJahr(gebutsJahr),name(name),ort(x,y)
 {
 
 }
@@ -26,10 +26,10 @@ int Pony::gibgebutsJahr()
     return gebutsJahr;
 }
 
-void Pony::setzePos(const Position &p)
+void Pony::setzePos(const Position &pos)
 {
-    ort.x =  p.x;
-    ort.y = p.y;
+    ort.x =  pos.x;
+    ort.y = pos.y;
 }
 
 bool Pony::istReitbar(int x)

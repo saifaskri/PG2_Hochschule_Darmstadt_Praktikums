@@ -19,6 +19,7 @@ int ponyHufe( unsigned numPonys){
 
 int main()
 {
+
     unsigned NumberHufen = 0;
     NumberHufen = ponyHufe(7);
     cout << NumberHufen<< endl;

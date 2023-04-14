@@ -63,15 +63,29 @@ float Stall::durchschnittsalter()
     float Durchschnittsalter = 0.0;
 
     for (int i = 0;  i < getPferdeboxen_belegung(); i++) {
-        Durchschnittsalter+= berechneJahr() -pferdeboxen[i]->gibgebutsJahr();
+        if(pferdeboxen[i]!=nullptr)
+            Durchschnittsalter+= berechneJahr() - pferdeboxen[i]->gibgebutsJahr();
     }
 
     return Durchschnittsalter/getPferdeboxen_belegung();
 }
 
-void Stall::weidegang()
+void Stall::weidegang(Weide weide)
 {
+    srand(time(NULL));
 
+    float x;
+    float y;
+
+    for (int i = 0; i < SIZE; ++i) {
+        if(pferdeboxen[i]!=nullptr){
+            x = (float)rand()/RAND_MAX;
+            y = (float)rand()/RAND_MAX;
+            //cout <<x<<"   "<<y<<endl;
+            Position pos(x,y);
+            pferdeboxen[i]->setzePos(pos);
+        }
+    }
 }
 
 void Stall::zeigeInfo()
@@ -116,7 +130,7 @@ void Stall::zeigeInfo()
 int Stall::berechneJahr()
 {
     time_t seconds = time(NULL);
-    cout<<(seconds/(3600*24*365,25)-1970)<<endl;
+    //cout<<(seconds/(3600*24*365,25)-1970)<<endl;
     return 2023;
 }
 

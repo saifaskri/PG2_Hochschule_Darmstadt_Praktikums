@@ -8,7 +8,9 @@
 
 using namespace std;
 
-class Ponyhof : public Stall
+
+
+class Ponyhof
 {
 public:
     Ponyhof();
@@ -22,7 +24,7 @@ private:
     Stall stallung;
     vector<Pony*> beimReiten;
     //?????????????
-    string weide;
+    Weide weide;
 };
 
 #endif // PONYHOF_H

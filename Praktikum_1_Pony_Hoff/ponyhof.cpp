@@ -21,8 +21,17 @@ vector<string> Ponyhof::explode(string x,char seperator){
     return v;
 }
 
-Ponyhof::Ponyhof()
+Ponyhof::Ponyhof():weide()
 {
+
+    //Die Weide beginnt bei Position Pw (xw, yw) und ist 𝑙𝑙𝑙𝑙𝑙𝑙𝑙𝑙𝑙𝑙𝑙𝑙 × 𝑏𝑏𝑏𝑏𝑏𝑏𝑏𝑏𝑏𝑏𝑏𝑏 groß (vgl. Abbildung). Um Pi im
+    //Weidebereich von (xw, yw) bis (xw+ breite, yw+ laenge) zu erhalten, gehen Sie wie folgt vor, wobei Sie
+    //die zur Umsetzung benötigten Variablen zur Vereinfachung im Code als Konstanten festlegen dürfen:
+    //• Zuerst für Position Pi zwei Zufallszahlen zx, zy bestimmen2
+    //• Beide je durch RAND_MAX teilen, um in Bereich [0, 1] umzurechnen, damit gilt: zx‘, zy‘ ∈ [0, 1]
+
+
+
 //    ofstream myfile;
 //    myfile.open ("ponys.txt", ios::out | ios::app | ios::binary);
 
@@ -48,6 +57,7 @@ Ponyhof::Ponyhof()
                 Name = Attribute[i+1];
                 Geburtsjahr = stoi (Attribute[i+2]);
                 YesNo =  Attribute[i+3][0];
+
                 if(YesNo=='N'||YesNo=='n'){
                     YesNo_bool=false;
                 }else if (YesNo=='Y'||YesNo=='y'){
@@ -61,10 +71,10 @@ Ponyhof::Ponyhof()
 
                 if(Rasse=="Islandpferd"){
                     Pony *Isi = new Islandpferd(Name,Geburtsjahr,YesNo_bool);
-                    gespeichert = einstellen(Isi);
+                    gespeichert = stallung.einstellen(Isi);
                 }else if(Rasse=="Shetlandpony"){
                     Pony *Shetty= new Shetlandpony(Name,Geburtsjahr,YesNo_bool);
-                    gespeichert= einstellen(Shetty);
+                    gespeichert= stallung.einstellen(Shetty);
 
                 }
 
@@ -84,7 +94,7 @@ Ponyhof::Ponyhof()
 
 Ponyhof::~Ponyhof()
 {
-    vector<Pony *> v= getAllPonysFromPferdBoxen();
+    vector<Pony *> v = stallung.getAllPonysFromPferdBoxen();
 
 
     ofstream myfile ("C:\\Users\\saifa\\Desktop\\Hochschule\\PG2_Hochschule_Darmstadt_Praktikums\\Praktikum_1_Pony_Hoff\\ponys.txt");
@@ -162,10 +172,10 @@ void Ponyhof::ponyAnlegen(){
 
     if(rasse==0){
         Pony *Isi = new Islandpferd(name,geburtsJahr,yesNo);
-        gespeichert = einstellen(Isi);
+        gespeichert = stallung.einstellen(Isi);
     }else if(rasse==1){
         Pony *Shetty= new Shetlandpony(name,geburtsJahr,yesNo);
-        gespeichert= einstellen(Shetty);
+        gespeichert= stallung.einstellen(Shetty);
 
     }
 
@@ -181,7 +191,7 @@ void Ponyhof::ponyAnlegen(){
 
 void Ponyhof::ponyHolen(string name)
 {
-    Pony* p = herausholen(name);
+    Pony* p = stallung.herausholen(name);
 
     if(p!=nullptr){
 
@@ -201,7 +211,7 @@ void Ponyhof::feierabend()
         cout<<"Feierabend! Alle Ponys werden zurueckgebracht......"<<endl;
 
     for (size_t i = 0; i < beimReiten.size(); ++i) {
-        if(einstellen(beimReiten[i])){
+        if(stallung.einstellen(beimReiten[i])){
            cout<<beimReiten[i]->gibName()<<" ist zurueck"<<endl;
            beimReiten.erase(beimReiten.begin()+i);
         }else
@@ -224,6 +234,7 @@ void Ponyhof::userDialog()
         cout<<"1 Pony einstellen"<<endl;
         cout<<"2 Pony zum Reiten holen"<<endl;
         cout<<"3 Ponys kontrollieren"<<endl;
+        cout<<"4 Ponys auf Weide schicken"<<endl;
         cout<<"0 Programm beenden"<<endl;
         cin>>WHAL;
         switch (WHAL) {
@@ -236,10 +247,13 @@ void Ponyhof::userDialog()
             ponyHolen(name);
             break;
         case 3:
-               zeigeInfo();
+               stallung.zeigeInfo();
                cout<<"es werden "<<beimReiten.size()<<" Ponys gerade geritten "<<endl;
                cout<<endl;
                cout<<endl;
+            break;
+        case 4:
+            stallung.weidegang(weide);
             break;
         case 0:
             feierabend();
