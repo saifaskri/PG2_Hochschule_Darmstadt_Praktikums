@@ -32,7 +32,7 @@ Ponyhof::Ponyhof():weide()
 
 
 
-//    ofstream myfile;
+//    of myfile;
 //    myfile.open ("ponys.txt", ios::out | ios::app | ios::binary);
 
     char YesNo;
@@ -41,50 +41,30 @@ Ponyhof::Ponyhof():weide()
     string Name;
     string Rasse;
     vector<string> Attribute;
-    int zaehler;
     string line;
     bool gespeichert;
 
     ifstream myfile ("C:\\Users\\saifa\\Desktop\\Hochschule\\PG2_Hochschule_Darmstadt_Praktikums\\Praktikum_1_Pony_Hoff\\ponys.txt");
     if (myfile.is_open()){
-    while ( getline (myfile,line) ){
-      Attribute = explode(line);
+        while ( getline (myfile,line) ){
+            istringstream data(line);
+            data>> Rasse>> Name>> Geburtsjahr>> YesNo;
 
-      zaehler = -1;
-      for (size_t i = 0; i < Attribute.size(); i++) {
+            if(YesNo=='N'||YesNo=='n'){YesNo_bool=false;
+            }else if (YesNo=='Y'||YesNo=='y'){YesNo_bool = true;
+            }else{cout<<"Fehler steht in File"<<endl;return;}
 
-                Rasse = Attribute[i];
-                Name = Attribute[i+1];
-                Geburtsjahr = stoi (Attribute[i+2]);
-                YesNo =  Attribute[i+3][0];
+            if(Rasse=="Islandpferd"){
+                Pony *Isi = new Islandpferd(Name,Geburtsjahr,YesNo_bool);
+                gespeichert = stallung.einstellen(Isi);
+            }else if(Rasse=="Shetlandpony"){
+                Pony *Shetty= new Shetlandpony(Name,Geburtsjahr,YesNo_bool);
+                gespeichert= stallung.einstellen(Shetty);
+            }
 
-                if(YesNo=='N'||YesNo=='n'){
-                    YesNo_bool=false;
-                }else if (YesNo=='Y'||YesNo=='y'){
-                    YesNo_bool = true;
-                }else{
-                    cout<<"Fehler steht in File"<<endl;
-                    return;
-                }
-                i+=4;
-
-
-                if(Rasse=="Islandpferd"){
-                    Pony *Isi = new Islandpferd(Name,Geburtsjahr,YesNo_bool);
-                    gespeichert = stallung.einstellen(Isi);
-                }else if(Rasse=="Shetlandpony"){
-                    Pony *Shetty= new Shetlandpony(Name,Geburtsjahr,YesNo_bool);
-                    gespeichert= stallung.einstellen(Shetty);
-
-                }
-
-                if(gespeichert==true){
-                    cout<<"Pony wurde eingefuegt"<<endl;
-                }else{
-                    cout<<"Leider Voll"<<endl;
-                }
-      }
-    }
+            if(gespeichert==true){cout<<"Pony wurde eingefuegt"<<endl;
+            }else{cout<<"Leider Voll"<<endl;}
+        }
     myfile.close();
     }
 
@@ -95,15 +75,17 @@ Ponyhof::Ponyhof():weide()
 Ponyhof::~Ponyhof()
 {
     vector<Pony *> v = stallung.getAllPonysFromPferdBoxen();
-
-
+    for (size_t i = 0; i < weide.PonysInWeide.size(); ++i) {
+        //cout<<weide.PonysInWeide[i]->gibName()<<endl;
+        v.push_back(weide.PonysInWeide[i]);
+    }
     ofstream myfile ("C:\\Users\\saifa\\Desktop\\Hochschule\\PG2_Hochschule_Darmstadt_Praktikums\\Praktikum_1_Pony_Hoff\\ponys.txt");
     if (myfile.is_open())
       {
 
         Islandpferd *Isl;
         Shetlandpony *shet;
-        for (int i = 0;  i < v.size(); i++) {
+        for (size_t i = 0;  i < v.size(); i++) {
 
             if ((Isl = dynamic_cast<Islandpferd*>(v[i]))){
                 myfile <<"Islandpferd"<<" "
@@ -122,6 +104,14 @@ Ponyhof::~Ponyhof()
         myfile.close();
       }
     else cout << "Unable to open file";
+
+
+        for (size_t i = 0; i < weide.PonysInWeide.size(); i++) {
+            delete weide.PonysInWeide[i];
+        }
+       cout<<"Ponys Auf der Weide wurden geloescht"<<endl;
+
+
 
 }
 
@@ -177,6 +167,8 @@ void Ponyhof::ponyAnlegen(){
         Pony *Shetty= new Shetlandpony(name,geburtsJahr,yesNo);
         gespeichert= stallung.einstellen(Shetty);
 
+
+
     }
 
     if(gespeichert==true){
@@ -210,18 +202,19 @@ void Ponyhof::feierabend()
     else
         cout<<"Feierabend! Alle Ponys werden zurueckgebracht......"<<endl;
 
-    for (size_t i = 0; i < beimReiten.size(); ++i) {
+    for (size_t i = 0; i <  beimReiten.size(); ++i) {
         if(stallung.einstellen(beimReiten[i])){
            cout<<beimReiten[i]->gibName()<<" ist zurueck"<<endl;
-           beimReiten.erase(beimReiten.begin()+i);
         }else
            cout<<"Fehler beim Zurückbringen der Pony in Stall(Wahrscheinlich Boxen sind alle voll)"<<endl;
     }
 
     for (size_t i = 0; i < beimReiten.size(); ++i) {
-           cout<<beimReiten[i]->gibName()<<" is"<<endl;
-      }
+           beimReiten.erase(beimReiten.begin()+i);
+    }
+
 }
+
 
 
 
@@ -229,8 +222,14 @@ void Ponyhof::userDialog()
 {
     int WHAL;
     string name;
-    Pony *p;
+    //Pony *p;
+    Islandpferd *Isl;
+    Shetlandpony *shet;
+    string line="===============================================================================================";
     while(true){
+
+
+
         cout<<"1 Pony einstellen"<<endl;
         cout<<"2 Pony zum Reiten holen"<<endl;
         cout<<"3 Ponys kontrollieren"<<endl;
@@ -247,10 +246,52 @@ void Ponyhof::userDialog()
             ponyHolen(name);
             break;
         case 3:
-               stallung.zeigeInfo();
-               cout<<"es werden "<<beimReiten.size()<<" Ponys gerade geritten "<<endl;
+            //if(weide.PonysInWeide.size()==0){
+                stallung.zeigeInfo();
+                cout<<endl;
+
+            //}else{
+
+                cout<<line<<endl;
+                cout<<endl;
+                cout<<"Es sind "<<weide.PonysInWeide.size()<<" Ponys gerade auf der Weide"<<endl;
+                cout<<endl;
+                if(weide.PonysInWeide.size()!=0){
+                    ExtraFunktionen::Ausgabe("Rasse");
+                    ExtraFunktionen::Ausgabe("Name");
+                    ExtraFunktionen::Ausgabe("Geburtsjahr");
+                    ExtraFunktionen::Ausgabe("X-Koordinate");
+                    ExtraFunktionen::Ausgabe("Y-Koordinate");
+                    ExtraFunktionen::Ausgabe("KinderLieb/HatEkzmer");
+                    cout<<endl;
+                    cout<<endl;
+                }
+
+                for (size_t i = 0;  i <weide.PonysInWeide.size(); i++) {
+                    if ((Isl = dynamic_cast<Islandpferd*>(weide.PonysInWeide[i]))){
+                        ExtraFunktionen::Ausgabe("Islandpferd");
+                        Isl->zeigeInfo();
+                        cout<<endl;
+                    }
+                    else if ((shet = dynamic_cast<Shetlandpony*>(weide.PonysInWeide[i]))){
+                        ExtraFunktionen::Ausgabe("Shetlandpony");
+                        shet->zeigeInfo();
+                        cout<<endl;
+                    }
+                }
+           // }
+           cout<<endl;
+           cout<<line<<endl;
+           cout<<endl;
+           cout<<"Es werden "<<beimReiten.size()<<" Ponys gerade geritten"<<endl;
+           cout<<endl;
+           //if All Ponys auf der Weide, so the mittel Old wi´ll not be outputed
+           if(weide.PonysInWeide.size()==0){
+               cout<<"Durchschnittsalter ist "<<stallung.durchschnittsalter()<<endl;
                cout<<endl;
-               cout<<endl;
+           }
+           cout<<line<<endl;
+           cout<<endl;
             break;
         case 4:
             stallung.weidegang(weide);

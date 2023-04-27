@@ -4,6 +4,7 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += \
+        extrafunktionen.cpp \
         islandpferd.cpp \
         main.cpp \
         pony.cpp \
@@ -12,6 +13,7 @@ SOURCES += \
         stall.cpp
 
 HEADERS += \
+    extrafunktionen.h \
     islandpferd.h \
     pony.h \
     ponyhof.h \

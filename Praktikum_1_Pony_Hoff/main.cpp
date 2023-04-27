@@ -22,10 +22,10 @@ int main()
 
     unsigned NumberHufen = 0;
     NumberHufen = ponyHufe(7);
-    cout << NumberHufen<< endl;
+    //cout << NumberHufen<< endl;
 
-    Ponyhof *p = new Ponyhof();
-    p->userDialog();
+    Ponyhof p ;
+    p.userDialog();
 
 
     return 0;

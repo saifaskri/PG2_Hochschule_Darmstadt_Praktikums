@@ -2,12 +2,25 @@
 #include "islandpferd.h"
 #include "shetlandpony.h"
 
+vector<Pony*> AllePonysImPonyHof;
+
 Stall::Stall()
 {
     for (int i = 0; i < SIZE; ++i) {
         pferdeboxen[i]=nullptr;
     }
 }
+
+Stall::~Stall()
+{
+
+    for (int i = 0; i < SIZE; i++) {
+       delete pferdeboxen[i];
+    }
+    cout<<"Ponys im Stall wurden geloescht"<<endl;
+
+}
+
 
 int Stall::belegteBoxen()
 {
@@ -26,6 +39,10 @@ bool Stall::einstellen(Pony *p)
     }
 
     pferdeboxen[getPferdeboxen_belegung()] = p;
+
+    //ALL Ponys sind Hier
+    AllePonysImPonyHof.push_back(p);
+
     setPferdeboxen_belegung(getPferdeboxen_belegung()+1);
     return true;
 }
@@ -62,7 +79,7 @@ float Stall::durchschnittsalter()
 {
     float Durchschnittsalter = 0.0;
 
-    for (int i = 0;  i < getPferdeboxen_belegung(); i++) {
+    for (int i = 0;  i < SIZE; i++) {
         if(pferdeboxen[i]!=nullptr)
             Durchschnittsalter+= berechneJahr() - pferdeboxen[i]->gibgebutsJahr();
     }
@@ -70,7 +87,7 @@ float Stall::durchschnittsalter()
     return Durchschnittsalter/getPferdeboxen_belegung();
 }
 
-void Stall::weidegang(Weide weide)
+void Stall::weidegang(Weide &weide)
 {
     srand(time(NULL));
 
@@ -81,50 +98,64 @@ void Stall::weidegang(Weide weide)
         if(pferdeboxen[i]!=nullptr){
             x = (float)rand()/RAND_MAX;
             y = (float)rand()/RAND_MAX;
-            //cout <<x<<"   "<<y<<endl;
-            Position pos(x,y);
+
+
+            Position pos( ( x * weide.Breite + weide.Px ) , (y * weide.Lange + weide.Py) );
             pferdeboxen[i]->setzePos(pos);
+
+            weide.PonysInWeide.push_back(pferdeboxen[i]);
+            pferdeboxen[i]=nullptr;
         }
     }
 }
 
 void Stall::zeigeInfo()
 {
-    cout<<"es gibt "<<belegteBoxen()<<" Ponys im Stall gerade untergestellt "<<endl;
+    int ZahlDerPonysImStall = 0 ;
+    for (int i = 0; i < SIZE; i++) {
+        if(pferdeboxen[i] != nullptr)
+            ZahlDerPonysImStall++;
+    }
+
+    cout<<"es gibt "<<ZahlDerPonysImStall<<" Ponys im Stall gerade untergestellt "<<endl;
     cout<<endl;
     cout<<endl;
 
     string gap="      ";
-    string line="==================================================================";
-
-    if(getPferdeboxen_belegung()==0){
-        cout<<"Pferdeboxen sind Leer"<<endl;
+    string line="===============================================================================================";
+    cout<<line<<endl;
+    cout<<endl;
+    if(ZahlDerPonysImStall==0){
+        cout<<"es gibt keinen Pony im Stall"<<endl;
+        //cout<<endl;
+        return;
+    }else{
+        cout<<"Pony im Stall sind : "<<endl;
+        cout<<endl;
+        ExtraFunktionen::Ausgabe("Rasse");
+        ExtraFunktionen::Ausgabe("Name");
+        ExtraFunktionen::Ausgabe("Geburtsjahr");
+        ExtraFunktionen::Ausgabe("KinderLieb/HatEkzmer");
+        cout<<endl;
+        cout<<endl;
     }
 
     Islandpferd *Isl;
     Shetlandpony *shet;
-    cout<<line<<endl;
-    cout<<endl;
-    for (int i = 0;  i < getPferdeboxen_belegung(); i++) {
+
+    for (int i = 0;  i <SIZE; i++) {
         if ((Isl = dynamic_cast<Islandpferd*>(pferdeboxen[i]))){
-            cout<<"Islandpferd"<<gap;
-            cout<< pferdeboxen[i]->gibName()<<gap;
-            cout<< pferdeboxen[i]->gibgebutsJahr()<<gap;
-            cout<< "Ekzemer ? "<< (Isl->hatEkzem()?'y':'n') <<endl;
+            ExtraFunktionen::Ausgabe("Islandpferd");
+            pferdeboxen[i]->zeigeInfo();
+            cout<<endl;
         }
 
         else if ((shet = dynamic_cast<Shetlandpony*>(pferdeboxen[i]))){
-            cout<<"Shetlandpony"<<gap;
-            cout<< pferdeboxen[i]->gibName()<<gap;
-            cout<< pferdeboxen[i]->gibgebutsJahr()<<gap;
-            cout<< "KinderLieb ? "<< (shet->istKinderlieb()?'y':'n') <<endl;
+            ExtraFunktionen::Ausgabe("Shetlandpony");
+            shet->zeigeInfo();
+            cout<<endl;
         }
-
     }
-    cout<<endl;
-    cout<<"Durchschnittsalter ist "<<durchschnittsalter()<<endl;
-    cout<<endl;
-    cout<<line<<endl;
 }
 
 int Stall::berechneJahr()
@@ -139,8 +170,10 @@ vector<Pony *> Stall::getAllPonysFromPferdBoxen()
     vector<Pony *> v;
 
     for (int i = 0;  i < SIZE; i++) {
+        if(pferdeboxen[i]!=nullptr)
        v.push_back(pferdeboxen[i]);
     }
+
     return v;
 }
 

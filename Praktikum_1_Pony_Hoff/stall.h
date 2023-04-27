@@ -11,24 +11,32 @@
 
 struct Weide
 {
+
+    float Px=30;
+    float Py = 0;
+
     float Xw;
     float Yw;
+
     float Lange;
     float Breite;
     Position Ursprng ;
-    Weide(float Xw =(float)rand()/RAND_MAX ,float Yw = (float)rand()/RAND_MAX,float Lange = 40, float Breite =30 ): Xw(Xw), Yw(Yw), Lange(Lange),  Breite(Breite),Ursprng(Xw+Lange,Yw+Breite){}
+    vector<Pony*>PonysInWeide;
+    Weide(float Xw =(float)rand()/RAND_MAX ,float Yw = (float)rand()/RAND_MAX,float Lange = 60, float Breite =30 ): Xw(Xw), Yw(Yw), Lange(Lange),  Breite(Breite),Ursprng(Xw+Lange,Yw+Breite){}
 
 };
 
 class Stall
 {
 public:
+
     Stall();
+    ~Stall();
     int belegteBoxen();
     bool einstellen(Pony*);
     Pony* herausholen(string name);
     float durchschnittsalter();
-    void weidegang(Weide weide);
+    void weidegang(Weide &weide);
     void zeigeInfo();
     int berechneJahr();
     vector<Pony*> getAllPonysFromPferdBoxen();

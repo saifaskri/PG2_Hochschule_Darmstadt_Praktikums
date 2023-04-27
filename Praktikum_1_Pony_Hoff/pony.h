@@ -1,6 +1,7 @@
 #ifndef PONY_H
 #define PONY_H
 #include <iostream>
+#include "extrafunktionen.h"
 
 using namespace std;
 
@@ -16,6 +17,7 @@ class Pony
 {
 public:
     Pony();
+    ~Pony();
     Pony(string name,int gebutsJahr);
     Pony(string name,int gebutsJahr,float x ,float y);
     string gibName();
