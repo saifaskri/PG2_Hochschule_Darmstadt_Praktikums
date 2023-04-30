@@ -1,4 +1,5 @@
 #include "extrafunktionen.h"
+using namespace std;
 
 ExtraFunktionen::ExtraFunktionen()
 {

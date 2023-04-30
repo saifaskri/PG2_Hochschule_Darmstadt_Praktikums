@@ -1,4 +1,5 @@
 #include "shetlandpony.h"
+using namespace std;
 
 Shetlandpony::Shetlandpony()
 {

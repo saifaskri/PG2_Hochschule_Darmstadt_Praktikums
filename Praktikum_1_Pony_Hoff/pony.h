@@ -3,7 +3,6 @@
 #include <iostream>
 #include "extrafunktionen.h"
 
-using namespace std;
 
 struct Position
 {
@@ -17,7 +16,7 @@ class Pony
 {
 public:
     Pony();
-    ~Pony();
+    virtual ~Pony();
     Pony(string name,int gebutsJahr);
     Pony(string name,int gebutsJahr,float x ,float y);
     string gibName();

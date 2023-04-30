@@ -1,8 +1,7 @@
 #include "ponyhof.h"
 #include "islandpferd.h"
 #include "shetlandpony.h"
-
-
+using namespace std;
 
 vector<string> Ponyhof::explode(string x,char seperator){
     string word="";
@@ -21,55 +20,146 @@ vector<string> Ponyhof::explode(string x,char seperator){
     return v;
 }
 
+char UserPromet(){
+    char x;
+    while(true){
+        cout<<"Neu einlesen [e] oder abbrechen [a]?"<<endl;
+        cin>>x;
+        if(x =='E'|| x == 'A' || x =='e'|| x == 'a' ) break;
+    }
+    return x;
+}
+
+void ContinueOrExitProgramme(){
+    char x = UserPromet();
+    if(x=='a'||x=='A')
+        exit(0);
+}
+
+struct Data
+{
+    string Rasse;
+    string Name;
+    string Geburtsjahr;
+    char YesNo;
+    bool YesNo_bool;
+    Data() {}
+};
+
+ifstream openFile(string path){
+
+    ifstream myfile (path);
+    return myfile;
+}
+
+void checkYesNo(Data &mydata){
+
+    cout<<mydata.YesNo<<endl;
+    if( mydata.YesNo=='N'|| mydata.YesNo=='n')
+        mydata.YesNo_bool=false;
+    else if ( mydata.YesNo=='Y'|| mydata.YesNo=='y')
+        mydata.YesNo_bool = true;
+    else
+        throw  "y/n Fehler" ;
+
+}
+
+void checkGeburtsJahr(Data &mydata){
+
+   if(mydata.Geburtsjahr.length()<4)
+       //throw "Falsche Geburtsjahr Format less than 4";
+       throw "Falsche Geburtsjahr Format less than 4";
+
+   else{
+
+       for (size_t i = 0; i < mydata.Geburtsjahr.length(); ++i) {
+           if(!isdigit(mydata.Geburtsjahr[i])){
+               throw "Falsche Geburtsjahr Format";
+               break;
+           }
+    }   }
+}
+
+void checkRasse(Data mydata){
+
+    if(mydata.Rasse!="Shetlandpony" && mydata.Rasse!="Islandpferd" )
+        throw "falsche Rasse Type im Datei ";
+
+}
+
+bool CreateAndAddNewPony(Stall &stallung, Data mydata){
+    bool gespeichert = false;
+
+    if(mydata.Rasse=="Islandpferd"){
+        Pony *Isi = new Islandpferd(mydata.Name,stoi(mydata.Geburtsjahr),mydata.YesNo_bool);
+        gespeichert=stallung.einstellen(Isi);
+    }
+    else if(mydata.Rasse=="Shetlandpony"){
+        Pony *Shetty= new Shetlandpony(mydata.Name,stoi(mydata.Geburtsjahr),mydata.YesNo_bool);
+        gespeichert =  stallung.einstellen(Shetty);
+    }else{
+        cout<<"Fehler Wede Shetlandpony noch Islandpferd "<<endl;
+        return false;
+    }
+
+
+    if(gespeichert) cout<<"Pony wurde eingefuegt"<<endl;
+    else cout<<"Leider Voll"<<endl;
+
+    return gespeichert;
+}
+
+void suspendierungsZeile(bool &FehlerInDateiGefunden,int currentZeileNummer ){
+    if(FehlerInDateiGefunden){
+        cout<<endl;
+        cout<<"Lese Datei ab Zeile "<<currentZeileNummer<<" neu ein..."<<endl;
+        cout<<endl;
+        FehlerInDateiGefunden = false;
+    }
+
+}
+
+
 Ponyhof::Ponyhof():weide()
 {
 
-    //Die Weide beginnt bei Position Pw (xw, yw) und ist 𝑙𝑙𝑙𝑙𝑙𝑙𝑙𝑙𝑙𝑙𝑙𝑙 × 𝑏𝑏𝑏𝑏𝑏𝑏𝑏𝑏𝑏𝑏𝑏𝑏 groß (vgl. Abbildung). Um Pi im
-    //Weidebereich von (xw, yw) bis (xw+ breite, yw+ laenge) zu erhalten, gehen Sie wie folgt vor, wobei Sie
-    //die zur Umsetzung benötigten Variablen zur Vereinfachung im Code als Konstanten festlegen dürfen:
-    //• Zuerst für Position Pi zwei Zufallszahlen zx, zy bestimmen2
-    //• Beide je durch RAND_MAX teilen, um in Bereich [0, 1] umzurechnen, damit gilt: zx‘, zy‘ ∈ [0, 1]
-
-
-
-//    of myfile;
-//    myfile.open ("ponys.txt", ios::out | ios::app | ios::binary);
-
-    char YesNo;
-    bool YesNo_bool;
-    int Geburtsjahr;
-    string Name;
-    string Rasse;
-    vector<string> Attribute;
     string line;
-    bool gespeichert;
+    Data mydata;
+    int angehalteneZeile = 0 , currentZeileNummer = 0;
+    bool FehlerInDateiGefunden = false;
 
-    ifstream myfile ("C:\\Users\\saifa\\Desktop\\Hochschule\\PG2_Hochschule_Darmstadt_Praktikums\\Praktikum_1_Pony_Hoff\\ponys.txt");
+    ifstream myfile = openFile(FILE_PATH) ;
     if (myfile.is_open()){
         while ( getline (myfile,line) ){
-            istringstream data(line);
-            data>> Rasse>> Name>> Geburtsjahr>> YesNo;
+            currentZeileNummer++;
+            if(currentZeileNummer>=angehalteneZeile){
+                try {
 
-            if(YesNo=='N'||YesNo=='n'){YesNo_bool=false;
-            }else if (YesNo=='Y'||YesNo=='y'){YesNo_bool = true;
-            }else{cout<<"Fehler steht in File"<<endl;return;}
+                    suspendierungsZeile(FehlerInDateiGefunden,currentZeileNummer);
 
-            if(Rasse=="Islandpferd"){
-                Pony *Isi = new Islandpferd(Name,Geburtsjahr,YesNo_bool);
-                gespeichert = stallung.einstellen(Isi);
-            }else if(Rasse=="Shetlandpony"){
-                Pony *Shetty= new Shetlandpony(Name,Geburtsjahr,YesNo_bool);
-                gespeichert= stallung.einstellen(Shetty);
+                    istringstream data(line);
+                    data >> mydata.Rasse >> mydata.Name >> mydata.Geburtsjahr >> mydata.YesNo;
+
+                    checkRasse(mydata);
+                    //Name Braucht Man nicht zu überprüfen?
+                    checkGeburtsJahr(mydata);
+                    checkYesNo(mydata);
+                    CreateAndAddNewPony( stallung, mydata);
+
+                } catch ( const char* error) {
+                    cout  <<endl<<"Fehler in Zeile "<<currentZeileNummer<<" bitte korregieren!"<<endl;
+                    cerr<< "Error: " << error <<endl<<endl;
+                    ContinueOrExitProgramme();
+                    angehalteneZeile=currentZeileNummer; currentZeileNummer=0; FehlerInDateiGefunden = true;
+                    myfile = openFile(FILE_PATH);
+                }
             }
 
-            if(gespeichert==true){cout<<"Pony wurde eingefuegt"<<endl;
-            }else{cout<<"Leider Voll"<<endl;}
-        }
-    myfile.close();
-    }
-
-    else cout << "Unable to open file"<<endl;
-
+        }//end While Loop
+        myfile.close();
+    }//if file was successfuly opened
+    else // file not found
+        cout << "Unable to open file"<<endl;
 }
 
 Ponyhof::~Ponyhof()
@@ -214,9 +304,6 @@ void Ponyhof::feierabend()
     }
 
 }
-
-
-
 
 void Ponyhof::userDialog()
 {

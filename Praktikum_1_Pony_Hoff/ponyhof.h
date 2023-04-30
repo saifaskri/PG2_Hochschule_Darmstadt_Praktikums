@@ -5,6 +5,9 @@
 #include "stall.h"
 #include <vector>
 #include <fstream>
+#include <cctype>
+
+#define  FILE_PATH "C:\\Users\\saifa\\Desktop\\Hochschule\\PG2_Hochschule_Darmstadt_Praktikums\\Praktikum_1_Pony_Hoff\\ponys.txt"
 
 using namespace std;
 

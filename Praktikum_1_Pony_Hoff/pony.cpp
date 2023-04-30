@@ -1,6 +1,7 @@
 #include "pony.h"
 #include "islandpferd.h"
 #include "shetlandpony.h"
+using namespace std;
 
 Pony::Pony():ort(0,0){
 
@@ -8,7 +9,6 @@ Pony::Pony():ort(0,0){
 
 Pony::~Pony()
 {
-    if(this!=nullptr)
     delete this;
 }
 

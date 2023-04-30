@@ -1,4 +1,5 @@
 #include "islandpferd.h"
+using namespace std;
 
 Islandpferd::Islandpferd()
 {

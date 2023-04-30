@@ -1,8 +1,8 @@
 #include "stall.h"
 #include "islandpferd.h"
 #include "shetlandpony.h"
+using namespace std;
 
-vector<Pony*> AllePonysImPonyHof;
 
 Stall::Stall()
 {
@@ -15,6 +15,7 @@ Stall::~Stall()
 {
 
     for (int i = 0; i < SIZE; i++) {
+        if(pferdeboxen[i]== NULL)
        delete pferdeboxen[i];
     }
     cout<<"Ponys im Stall wurden geloescht"<<endl;
@@ -34,6 +35,7 @@ int Stall::belegteBoxen()
 
 bool Stall::einstellen(Pony *p)
 {
+
     if(getPferdeboxen_belegung() == SIZE - 1){
        return false;
     }
@@ -41,8 +43,7 @@ bool Stall::einstellen(Pony *p)
     pferdeboxen[getPferdeboxen_belegung()] = p;
 
     //ALL Ponys sind Hier
-    AllePonysImPonyHof.push_back(p);
-
+    //AllePonysImPonyHof.push_back(p);
     setPferdeboxen_belegung(getPferdeboxen_belegung()+1);
     return true;
 }
@@ -144,6 +145,8 @@ void Stall::zeigeInfo()
     Shetlandpony *shet;
 
     for (int i = 0;  i <SIZE; i++) {
+//        if(pferdeboxen[i])
+//        pferdeboxen[i]->zeigeInfo();
         if ((Isl = dynamic_cast<Islandpferd*>(pferdeboxen[i]))){
             ExtraFunktionen::Ausgabe("Islandpferd");
             pferdeboxen[i]->zeigeInfo();
@@ -161,8 +164,8 @@ void Stall::zeigeInfo()
 int Stall::berechneJahr()
 {
     time_t seconds = time(NULL);
-    //cout<<(seconds/(3600*24*365,25)-1970)<<endl;
-    return 2023;
+    //cout<<(float)seconds/(3600*24*365.25)+1970<<endl;
+    return ((float)seconds/(3600*24*365.25))+1970;
 }
 
 vector<Pony *> Stall::getAllPonysFromPferdBoxen()
