@@ -17,15 +17,21 @@ int ponyHufe( unsigned numPonys){
 
 };
 
-int main()
+int main(int argc, char* argv[])
 {
+//    cout<<"Number of Parameters is "<<argc<<endl;
+//    for(int i =0 ;i<argc;i++){
+//        cout<<"Parameter Nr: "<<i<<" "<<*(argv+i)<<endl;
+//    }
 
-    unsigned NumberHufen = 0;
-    NumberHufen = ponyHufe(7);
+//    exit(0);
+
+//    unsigned NumberHufen = 0;
+//    NumberHufen = ponyHufe(7);
     //cout << NumberHufen<< endl;
 
-    Ponyhof p ;
-    p.userDialog();
+    Ponyhof p(argc, argv) ;
+    p.userDialog( );
 
 
     return 0;

@@ -6,9 +6,9 @@
 #include <vector>
 #include <fstream>
 #include <cctype>
+#include <cstring>
 
-#define  FILE_PATH "C:\\Users\\saifa\\Desktop\\Hochschule\\PG2_Hochschule_Darmstadt_Praktikums\\Praktikum_1_Pony_Hoff\\ponys.txt"
-
+#define  PROJECT_PATH "C:\\Users\\saifa\\Desktop\\Hochschule\\PG2_Hochschule_Darmstadt_Praktikums\\Praktikum_1_Pony_Hoff\\"
 using namespace std;
 
 
@@ -16,7 +16,7 @@ using namespace std;
 class Ponyhof
 {
 public:
-    Ponyhof();
+    Ponyhof(int argc, char *argv[]);
     ~Ponyhof();
     void userDialog();
     void ponyAnlegen();
@@ -26,7 +26,6 @@ public:
 private:
     Stall stallung;
     vector<Pony*> beimReiten;
-    //?????????????
     Weide weide;
 };
 
