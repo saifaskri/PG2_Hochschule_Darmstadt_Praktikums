@@ -3,7 +3,6 @@
 #include "freehand.h"
 #include "line.h"
 #include "circle.h"
-#include "qforeach.h"
 #include "rectangle.h"
 
 bool CheckIfShapeIsAcceptable(GraphObj *obj){
@@ -65,8 +64,14 @@ void Canvas::paintEvent(QPaintEvent *event)
     QFrame::paintEvent(event);  // parent class draws border
     QPainter painter(this);
 
-    for(GraphObj *obj : AllShape) {
-        obj->draw(painter);
+    for(int i=0; i < (int)AllShape.size(); i++){
+
+        AllShape[i]->draw(painter);
+
+        if(i == SelectedIndex ){
+           AllShape[i]->setColor(lastColorOfSelectedShap);
+        }
+
     }
 
     if(shape != nullptr){
@@ -113,9 +118,18 @@ void Canvas::mousePressEvent(QMouseEvent *event){
             for( int i = AllShape.size() - 1 ; i != -1 ; --i) {
                if(AllShape[i]->checkTheSelectedShape(event->pos())){
                    SelectedIndex = i ;
-                   break;
+                   lastColorOfSelectedShap = AllShape[i]->getColor();
+
+                   //Set oppicity to the Shape
+                   QColor newColorForSelectedShape = Qt::gray;
+                   newColorForSelectedShape.setAlpha(100);
+
+                   AllShape[i]->setColor(newColorForSelectedShape);
+                   return;
                }
-            }
+            }//end for loop and no shape was selected
+            SelectedIndex = -1 ;
+
 
         }
 

@@ -56,6 +56,7 @@ void GraphObj::setBrushForTheObject(QPainter &painter)
         painter.setBrush(getColor());
     }
 
+
 }
 
 

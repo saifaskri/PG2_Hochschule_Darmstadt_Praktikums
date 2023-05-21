@@ -29,7 +29,7 @@ Paint::Paint(QWidget *parent): QWidget(parent)
 	lblPrimModes->setBuddy(cobPrimModes);
 
     btnDeleteObj = new QPushButton("&Delete Selected");
-    btnDeleteObj->setDisabled(false);
+    btnDeleteObj->setDisabled(true);
     btnChangeCol = new QPushButton("C&hange Color");
 
     cbOutline = new QCheckBox("Show Only &Outline", this);
@@ -75,9 +75,8 @@ Paint::~Paint(){
 void Paint::clearBtnPressed(){
 
 	viewport->clearCanvas();
-	// force redraw
-	update();
-    qDebug() << "Clear image called";
+    viewport->update();
+
 }
 
 void Paint::deleteBtnPressed()
@@ -87,11 +86,10 @@ void Paint::deleteBtnPressed()
         viewport->AllShape.erase(viewport->AllShape.begin()+viewport->getSelectedIndex());
         //reset SelectedIndex to -1 for the next Shape
         viewport->setSelectedIndex(-1) ;
-        //update();
+        viewport->update();
     }
 
-    // Implementation requires inside test for all objects for selection
-    //qDebug() << "Next action: delete selected item (NYI)";
+
 }
 
 void Paint::colorBtnPressed(){

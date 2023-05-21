@@ -63,7 +63,10 @@ private:
     QColor color;
     bool outline = true;
 
+    QColor lastColorOfSelectedShap;
+
     int SelectedIndex = -1 ;
+
     GraphObj *shape ;
 
 };
