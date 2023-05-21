@@ -4,7 +4,7 @@
 using namespace std;
 
 
-int ponyHufe( unsigned numPonys){
+int ponyHufe( unsigned numPonys = 20){
 
 
 
@@ -19,6 +19,7 @@ int ponyHufe( unsigned numPonys){
 
 int main(int argc, char* argv[])
 {
+
 //    cout<<"Number of Parameters is "<<argc<<endl;
 //    for(int i =0 ;i<argc;i++){
 //        cout<<"Parameter Nr: "<<i<<" "<<*(argv+i)<<endl;

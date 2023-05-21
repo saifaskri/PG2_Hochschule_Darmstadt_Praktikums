@@ -36,18 +36,18 @@ void ContinueOrExitProgramme(){
         exit(0);
 }
 
-struct Data
+struct Pony_Structur
+
 {
     string Rasse;
     string Name;
     string Geburtsjahr;
     char YesNo;
     bool YesNo_bool;
-    Data() {}
+    Pony_Structur() {}
 };
 
-ifstream openFileReadOnly(string path,string DateiName="ponys.txt",string mode="A"){
-
+ifstream openFileReadOnly(string path,string DateiName,string mode){
 
     if(mode=="A"){
         ifstream myfile (path+DateiName , std::ios::in);
@@ -58,11 +58,9 @@ ifstream openFileReadOnly(string path,string DateiName="ponys.txt",string mode="
         return myfile;
     }
 
-
 }
 
-
-void checkYesNo(Data &mydata){
+void checkYesNo(Pony_Structur &mydata){
 
 
     if( mydata.YesNo=='N'|| mydata.YesNo=='n')
@@ -74,29 +72,30 @@ void checkYesNo(Data &mydata){
 
 }
 
+void checkGeburtsJahr(Pony_Structur &mydata){
 
-void checkGeburtsJahr(Data &mydata){
-
-   if(mydata.Geburtsjahr.length()<4)
+   if(mydata.Geburtsjahr.length()!=4){
+       cout<<mydata.Geburtsjahr<<endl,
        throw "Falsches Geburtsjahr Format less than 4";
 
-   else{
-       for (size_t i = 0; i < mydata.Geburtsjahr.length(); ++i) {
-           if(!isdigit(mydata.Geburtsjahr[i])){
-               throw "Falsche Geburtsjahr Format es gibt ein Buchstaben dadrinnen";
-               break;
-           }
-    }   }
+   }
+
+   for (size_t i = 0; i < mydata.Geburtsjahr.length(); ++i) {
+       if(!isdigit(mydata.Geburtsjahr[i])){
+           throw "Falsche Geburtsjahr Format es gibt ein Buchstaben dadrinnen";
+           break;
+       }
+   }
 }
 
-void checkRasse(Data mydata){
+void checkRasse(Pony_Structur mydata){
 
     if(mydata.Rasse!="Shetlandpony" && mydata.Rasse!="Islandpferd" )
         throw "falsche Rasse Type im Datei ";
 
 }
 
-bool CreateAndAddNewPony(Stall &stallung, Data mydata){
+bool CreateAndAddNewPony(Stall &stallung, Pony_Structur mydata){
     bool gespeichert = false;
 
     if(mydata.Rasse=="Islandpferd"){
@@ -110,7 +109,6 @@ bool CreateAndAddNewPony(Stall &stallung, Data mydata){
         cout<<"Fehler Wede Shetlandpony noch Islandpferd "<<endl;
         return false;
     }
-
 
     if(gespeichert)
         cout<<"Pony wurde eingefuegt"<<endl;
@@ -129,11 +127,13 @@ void suspendierungsZeile(bool &FehlerInDateiGefunden,int currentZeileNummer ){
 
 }
 
-void convertTxtToBin(){
+void convertTxtToBin(string file,string mode){
+
+
     string line ;
 
-    ifstream myfile = openFileReadOnly(PROJECT_PATH) ;
-    ofstream binaryFile("C:\\Users\\saifa\\Desktop\\Hochschule\\PG2_Hochschule_Darmstadt_Praktikums\\Praktikum_1_Pony_Hoff\\ponys.bin", ios::binary);
+    ifstream myfile = openFileReadOnly(PROJECT_PATH,"ponys.txt","A") ;
+    ofstream binaryFile("C:\\Users\\saifa\\Desktop\\Hochschule\\PG2_Hochschule_Darmstadt_Praktikums\\Praktikum_1_Pony_Hoff\\ponys.bin" , ios::binary | ios::out| ios::app );
     if (myfile.is_open()){
         while ( getline (myfile,line) ){
             // Öffnen der Datei im binären Schreibmodus
@@ -141,7 +141,7 @@ void convertTxtToBin(){
             if (binaryFile.is_open()) {
                 // Schreiben des Texts als binäre Daten in die Datei
                 binaryFile.write(line.c_str(), line.length());
-                cout << "Text erfolgreich in binaere Daten konvertiert." << endl;
+                //cout << "Text erfolgreich in binaere Daten konvertiert." << endl;
             } else {
                 // Fehler beim Öffnen der Datei
                 cout << "Fehler beim Öffnen der Datei." << endl;
@@ -166,91 +166,116 @@ string getFileExt(char *x){
     return ext;
 }
 
-Ponyhof::Ponyhof(int argc, char* argv[]):weide()
-{
-
-    string mode="A";
-    string DateiName;
+void getfileNameAndMode(int argc, char* argv[], string &mode, string &DateiName  ){
 
     #ifdef WRITE_BIN
         mode = "B";
-        cout << "Binary writer called...\n";
+        cout << "Binary writer called...\n\n\n";
     #else
         mode = "A";
-        cout << "ASCII writer called...\n";
+        cout << "ASCII writer called...\n\n\n";
     #endif
 
         // prüfe text Übergabe
-    if(argc>=2){
-        if(getFileExt(*(argv+1))==".txt" && mode == "B"){
-            //Wiederspruch
-            cout<<"WiederSpruch einmal txt Datei einaml binaer modus"<<endl;
-            cout<<"Es wird Defaultmaessig gelesen (TXT)"<<endl;
-            mode="A";
-            DateiName = "ponys.txt";
-        }else if(getFileExt(*(argv+1))==".bin" && mode == "A"){
-            //Wiederspruch
-            cout<<"WiederSpruch einmal bin Datei einmal Text modus"<<endl;
-            cout<<"Es wird Defaultmaessig gelesen (TXT)"<<endl;
-            mode="A";
-            DateiName = "ponys.txt";
-        }else if(getFileExt(*(argv+1))==".bin" && mode == "B"){
-            mode="B";
-            DateiName = *(argv+1)  ;
-        }else if(getFileExt(*(argv+1))==".txt" && mode == "A"){
-            mode="A";
-            DateiName = *(argv+1) ;
-        }
-        cout<<"==========================================="<<endl;
-        cout<< "uebergebenen Datei  "<<getFileExt(*(argv+1))<<" ";
-
-    }else{
-        cout<<"kein Datei wurde uebergeben"<<endl;
+    if(!(argc>=2)){
+       cout<<"kein Datei wurde uebergeben"<<endl;
+       return;
     }
 
-    cout<<"Modus "<<mode<<endl;
+    if(getFileExt(*(argv+1))==".txt" && mode == "B"){
+        //Wiederspruch
+        cout<<"WiederSpruch einmal txt Datei einaml binaer modus"<<endl;
+        cout<<"Es wird Defaultmaessig gelesen (TXT)"<<endl;
+        mode="A";
+        DateiName = "ponys.txt";
+    }
+    if(getFileExt(*(argv+1))==".bin" && mode == "A"){
+        //Wiederspruch
+        cout<<"WiederSpruch einmal bin Datei einmal Text modus"<<endl;
+        cout<<"Es wird Defaultmaessig gelesen (TXT)"<<endl;
+        mode="A";
+        DateiName = "ponys.txt";
+    }
+    if(getFileExt(*(argv+1))==".bin" && mode == "B"){
+        mode="B";
+        DateiName = *(argv+1)  ;
+    }
+    if(getFileExt(*(argv+1))==".txt" && mode == "A"){
+        mode="A";
+        DateiName = *(argv+1) ;
+    }
+    cout<<"==========================================="<<endl<<endl;
+    cout<< "uebergebenen Datei "<<*(argv+1)<<" ";
+    cout<<"Modus "<<mode<<endl<<endl;
     cout<<"==========================================="<<endl;
+}
 
+Ponyhof::Ponyhof(int argc, char* argv[]):weide()
+{
+
+    cout<<endl<<endl;
+
+    string mode = "A" ;
+    string DateiName = "ponys.txt";
+
+    if(argc > 1 ){
+        getfileNameAndMode( argc,  argv,  mode,  DateiName  );
+
+    }
+
+    convertTxtToBin(DateiName,mode);
 
 
     string line;
-    Data mydata;
+    string token;
+    char delim = ' ';
+
+    Pony_Structur p;
+
     int angehalteneZeile = 0 , currentZeileNummer = 0;
     bool FehlerInDateiGefunden = false;
-
-    convertTxtToBin();
 
     ifstream myfile = openFileReadOnly(PROJECT_PATH,DateiName,mode) ;
     if (myfile.is_open()){
         while ( getline (myfile,line) ){
             currentZeileNummer++;
+            // check the line were we stopped to avoid double Einträge
             if(currentZeileNummer>=angehalteneZeile){
                 try {
-
                     suspendierungsZeile(FehlerInDateiGefunden,currentZeileNummer);
-                    istringstream data(line);
-                    data >> mydata.Rasse >> mydata.Name >> mydata.Geburtsjahr >> mydata.YesNo;
-                    checkRasse(mydata);
-                    //Name Braucht Man nicht zu überprüfen?
-                    checkGeburtsJahr(mydata);
-                    checkYesNo(mydata);
-                    CreateAndAddNewPony( stallung, mydata);
-
+                     istringstream data(line);
+                     // data >> mydata.Rasse >> mydata.Name >> mydata.Geburtsjahr >> mydata.YesNo;
+                     //passe data here
+                     getline(data,token,' ');
+                     p.Rasse = token;
+                     getline(data,token,delim);
+                     p.Name = token;
+                     getline(data,token,delim);
+                     p.Geburtsjahr = token;
+                     getline(data,token,delim);
+                     p.YesNo = token[0] ;
+                    //check data
+                    checkRasse(p);
+                        //Name Braucht Man nicht zu überprüfen?
+                    checkGeburtsJahr(p);
+                    checkYesNo(p);
+                    CreateAndAddNewPony(stallung,p);
                 } catch ( const char* error) {
-
                     cout  <<endl<<"Fehler in Zeile "<<currentZeileNummer<<" bitte korregieren!"<<endl;
                     cerr<< "Error: " << error <<endl<<endl;
                     ContinueOrExitProgramme();
                     angehalteneZeile=currentZeileNummer; currentZeileNummer=0; FehlerInDateiGefunden = true;
                     myfile = openFileReadOnly(PROJECT_PATH,DateiName,mode);
-
                 }
-            }
+            }// end if check for double Einträge
         }//end While Loop
         myfile.close();
     }//if file was successfuly opened
     else // file not found
         cout << "Unable to open file"<<endl;
+
+    cout<<endl<<endl;
+
 }
 
 Ponyhof::~Ponyhof()
@@ -283,6 +308,7 @@ Ponyhof::~Ponyhof()
             }
         }
         myfile.close();
+        convertTxtToBin("ponys.txt","A");
       }
     else cout << "Unable to open file";
 

@@ -1,0 +1,4 @@
+Shetlandpony,saif,2007,y
+Islandpferd,Hera,2003,n
+Islandpferd,Fee,2003,n
+Islandpferd,Odin,2003,n

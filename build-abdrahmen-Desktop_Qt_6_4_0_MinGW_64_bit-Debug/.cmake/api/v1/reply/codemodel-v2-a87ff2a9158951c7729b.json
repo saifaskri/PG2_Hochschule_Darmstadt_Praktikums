@@ -1,0 +1,61 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Debug-1f1d338a44ec93a71750.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "abdrahmen",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "abdrahmen::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-abdrahmen-Debug-70773e2ea00bd2d6d003.json",
+					"name" : "abdrahmen",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/Users/saifa/Desktop/Hochschule/PG2_Hochschule_Darmstadt_Praktikums/build-abdrahmen-Desktop_Qt_6_4_0_MinGW_64_bit-Debug",
+		"source" : "C:/Users/saifa/Desktop/Hochschule/PG2_Hochschule_Darmstadt_Praktikums/abdrahmen"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 4
+	}
+}

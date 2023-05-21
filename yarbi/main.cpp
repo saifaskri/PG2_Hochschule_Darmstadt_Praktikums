@@ -103,8 +103,11 @@ public:
 
     CPU(){
         Process *initProcess = new Process();
+
         initProcess = new Process();
+
         loadProgrammInProcess("init",initProcess);
+
         readyQueue.push_back(initProcess);
     };
 
@@ -397,7 +400,7 @@ public:
 
         while (!readyQueue.empty() || !io_unit.waitingQueue.empty()) {
 
-           ///*== nur Für Testen ================>*/ getQueues();// <======kommentiere einfach aus =============
+           /*== nur Für Testen ================>*/ getQueues();// <======kommentiere einfach aus =============
 
             if(!io_unit.waitingQueue.empty()){
                 if(io_unit.waitingQueue.front()->status == READY){
@@ -438,11 +441,13 @@ public:
 int main()
 {
     Buchhaltung_UpBar();
+
     CPU cpu = CPU();
 
-    cpu.primetiveScheduling = true;
+    cpu.primetiveScheduling = false;
 
     cpu.schedule();
+
     cpu.PrintZusammenfassung_header();
     cpu.PrintZusammenfassung();
 

@@ -1,0 +1,61 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Debug-394ccd7f7738d0a789b7.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "yarbi",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "yarbi::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-yarbi-Debug-31199c0231112e53e493.json",
+					"name" : "yarbi",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/Users/saifa/Desktop/Hochschule/PG2_Hochschule_Darmstadt_Praktikums/build-yarbi-Desktop_Qt_6_4_0_MinGW_64_bit-Debug",
+		"source" : "C:/Users/saifa/Desktop/Hochschule/PG2_Hochschule_Darmstadt_Praktikums/yarbi"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 4
+	}
+}
