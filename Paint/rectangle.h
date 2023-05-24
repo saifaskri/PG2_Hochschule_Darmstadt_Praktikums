@@ -10,7 +10,7 @@ public:
     Rectangle();
     virtual ~Rectangle();
     void draw(QPainter &painter);
-    bool checkTheSelectedShape(QPoint);
+    bool checkTheSelectedShape(QPoint p);
 
 
     int getWidth() const;

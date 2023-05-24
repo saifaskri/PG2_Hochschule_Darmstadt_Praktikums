@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+
 #include <QButtonGroup>
 
 QT_BEGIN_NAMESPACE
@@ -19,10 +20,16 @@ public:
 
 private slots:
     void myCalc();
+    void timclick();
+
 
 private:
     Ui::MainWindow *ui;
+
     QButtonGroup *bg;
+
+    QButtonGroup *timbg;
+
 };
 
 

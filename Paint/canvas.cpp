@@ -58,8 +58,7 @@ void Canvas::setPrimitiveMode(int mode){
 
 }
 
-void Canvas::paintEvent(QPaintEvent *event)
-{
+void Canvas::paintEvent(QPaintEvent *event){
 
     QFrame::paintEvent(event);  // parent class draws border
     QPainter painter(this);
@@ -68,9 +67,10 @@ void Canvas::paintEvent(QPaintEvent *event)
 
         AllShape[i]->draw(painter);
 
-        if(i == SelectedIndex ){
+        // give the color back to the Shape when shape will not be deleted
+        if(i == SelectedIndex )
            AllShape[i]->setColor(lastColorOfSelectedShap);
-        }
+
 
     }
 
@@ -85,6 +85,7 @@ void Canvas::mousePressEvent(QMouseEvent *event){
     if (event->button() == Qt::LeftButton) {
         dragging = true;
         if(type != NONE){
+
             switch (type) {
             case LINE:
                 shape = new Line();
@@ -104,6 +105,7 @@ void Canvas::mousePressEvent(QMouseEvent *event){
             default:
                 break;
             }
+
             if(shape != nullptr){
                shape->setStartPoint(event->pos());
                shape->setStopPoint(event->pos());
@@ -113,29 +115,28 @@ void Canvas::mousePressEvent(QMouseEvent *event){
 
         }else{
 
-            // select Object to be deleted
-            //std::cout<<" ( "<<event->pos().x()<<" , "<<event->pos().y()<<" ) "<<std::endl;
-            for( int i = AllShape.size() - 1 ; i != -1 ; --i) {
-               if(AllShape[i]->checkTheSelectedShape(event->pos())){
-                   SelectedIndex = i ;
-                   lastColorOfSelectedShap = AllShape[i]->getColor();
+        // select Object to be deleted
+        //std::cout<<" ( "<<event->pos().x()<<" , "<<event->pos().y()<<" ) "<<std::endl;
+        for( int i = AllShape.size() - 1 ; i != -1 ; --i) {
+           if(AllShape[i]->checkTheSelectedShape(event->pos())){
+               SelectedIndex = i ;
+               lastColorOfSelectedShap = AllShape[i]->getColor();
 
-                   //Set oppicity to the Shape
-                   QColor newColorForSelectedShape = Qt::gray;
-                   newColorForSelectedShape.setAlpha(100);
+               //Set oppicity to the Shape
+               QColor newColorForSelectedShape = Qt::gray;
+               newColorForSelectedShape.setAlpha(100);
 
-                   AllShape[i]->setColor(newColorForSelectedShape);
-                   return;
-               }
-            }//end for loop and no shape was selected
-            SelectedIndex = -1 ;
+               AllShape[i]->setColor(newColorForSelectedShape);
+               return;
+           }
+        }//end for loop and no shape was selected
+        SelectedIndex = -1 ;
 
 
         }
 
         update();
     }
-
 
 }
 

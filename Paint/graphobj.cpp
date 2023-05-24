@@ -50,6 +50,7 @@ void GraphObj::setBrushForTheObject(QPainter &painter)
 {
     // Set brush color using hexadecimal value
     painter.setPen(getColor());
+
     if(!getOutline()){
         painter.setBrush(Qt::NoBrush);
     }else{
@@ -57,6 +58,13 @@ void GraphObj::setBrushForTheObject(QPainter &painter)
     }
 
 
+}
+
+QPoint GraphObj::CalculateVector(QPoint a, QPoint b){
+    QPoint vector;
+    vector.setX(b.x() - a.x());
+    vector.setY(b.y() - a.y());
+    return vector;
 }
 
 

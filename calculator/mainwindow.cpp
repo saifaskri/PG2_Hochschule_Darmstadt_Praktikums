@@ -31,7 +31,7 @@ void MainWindow::myCalc()
     float res = 0.0 ;
 
     switch (bg->checkedId()) {
-    case 20:
+    case 0:
         res = op1+ op2;
         break;
     case 1:
@@ -50,5 +50,9 @@ void MainWindow::myCalc()
 
     ui->summe_label->setText(QString::number(res));
 
+}
+
+void MainWindow::timclick()
+{
 }
 

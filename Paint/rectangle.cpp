@@ -23,8 +23,21 @@ void Rectangle::draw(QPainter &painter){
 
 }
 
-bool Rectangle::checkTheSelectedShape(QPoint)
-{
+bool Rectangle::checkTheSelectedShape(QPoint p){
+
+    if(getStartPoint().y() > getStopPoint().y()){
+        QPoint y;
+        y = getStopPoint();
+        setStopPoint(getStartPoint());
+        setStartPoint(y);
+    }
+    if(p.y() >= getStartPoint().y() &&
+       p.y() <= getStopPoint().y()  &&
+       p.x() >= getStartPoint().x() &&
+       p.x() <= getStopPoint().x() )
+    {
+        return true;
+    }
 
     return false;
 }

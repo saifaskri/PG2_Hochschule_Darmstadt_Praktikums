@@ -29,8 +29,10 @@ public:
 
     QColor getColor() const;
     void setColor(const QColor &newColor);
-
     void setBrushForTheObject(QPainter &painter);
+
+
+    QPoint CalculateVector( QPoint a ,  QPoint b);
 
 
 private:

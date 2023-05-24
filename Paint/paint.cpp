@@ -29,7 +29,7 @@ Paint::Paint(QWidget *parent): QWidget(parent)
 	lblPrimModes->setBuddy(cobPrimModes);
 
     btnDeleteObj = new QPushButton("&Delete Selected");
-    btnDeleteObj->setDisabled(true);
+    btnDeleteObj->setDisabled(false);
     btnChangeCol = new QPushButton("C&hange Color");
 
     cbOutline = new QCheckBox("Show Only &Outline", this);
