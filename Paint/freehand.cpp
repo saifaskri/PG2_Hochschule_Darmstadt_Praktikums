@@ -23,12 +23,13 @@ void FreeHand::draw(QPainter &painter){
 
 bool FreeHand::checkTheSelectedShape(QPoint p){
 
+    QPoint vector;
     for(koordinate *k : pointHestory) {
-       // std::cout<<"Start Point: "<<" ( "<<k->startPoint.x()<<" , "<< k->startPoint.y()<<" ) "<<std::endl;
 
-        if(p.x() == k->startPoint.x()  && p.y() == k->startPoint.y() ){
-           std::cout<<"Object is selected"<<std::endl;
-           return true;
+        vector = p - k->startPoint ;
+
+         if ( RANGE > sqrt( (vector.x()*vector.x()) + (vector.y()*vector.y()) )   ){
+             return true;
         }
 
     }

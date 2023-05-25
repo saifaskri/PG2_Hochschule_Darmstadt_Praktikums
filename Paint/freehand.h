@@ -6,6 +6,8 @@
 #include <QPixmap>
 #include <vector>
 
+#define RANGE 10
+
 struct koordinate{
     QPoint startPoint;
     QPoint stopPoint ;
