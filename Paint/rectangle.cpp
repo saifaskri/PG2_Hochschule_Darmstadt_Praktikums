@@ -25,21 +25,19 @@ void Rectangle::draw(QPainter &painter){
 
 bool Rectangle::checkTheSelectedShape(QPoint p){
 
+    // swap start- and stop point if stop grather than start point
     if(getStartPoint().y() > getStopPoint().y()){
         QPoint y;
         y = getStopPoint();
         setStopPoint(getStartPoint());
         setStartPoint(y);
     }
-    if(p.y() >= getStartPoint().y() &&
-       p.y() <= getStopPoint().y()  &&
-       p.x() >= getStartPoint().x() &&
-       p.x() <= getStopPoint().x() )
-    {
-        return true;
-    }
 
-    return false;
+    return(p.y() >= getStartPoint().y() &&
+           p.y() <= getStopPoint().y()  &&
+           p.x() >= getStartPoint().x() &&
+           p.x() <= getStopPoint().x() );
+
 }
 
 int Rectangle::getWidth() const

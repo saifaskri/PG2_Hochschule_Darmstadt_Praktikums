@@ -5,6 +5,7 @@
 #include<QPoint>
 #include <QPainter>
 
+#define FONTSIZE 3
 
 class GraphObj
 {
@@ -32,7 +33,6 @@ public:
     void setBrushForTheObject(QPainter &painter);
 
 
-    QPoint CalculateVector( QPoint a ,  QPoint b);
 
 
 private:

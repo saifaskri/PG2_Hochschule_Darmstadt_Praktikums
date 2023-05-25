@@ -2,7 +2,7 @@
 #define LINE_H
 
 #include "graphobj.h"
-#define RANGE 40
+#define RANGE 50
 class Line : public GraphObj{
 
 public:

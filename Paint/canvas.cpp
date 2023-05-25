@@ -64,19 +64,13 @@ void Canvas::paintEvent(QPaintEvent *event){
     QPainter painter(this);
 
     for(int i=0; i < (int)AllShape.size(); i++){
-
         AllShape[i]->draw(painter);
-
         // give the color back to the Shape when shape will not be deleted
-        if(i == SelectedIndex )
-           AllShape[i]->setColor(lastColorOfSelectedShap);
-
-
+//        if(i == SelectedIndex ){AllShape[i]->setColor(lastColorOfSelectedShap);}
     }
 
-    if(shape != nullptr){
-        shape->draw(painter);
-    }
+    //draw the Shape
+    if(shape != nullptr){shape->draw(painter);}
 
 }
 
@@ -113,25 +107,31 @@ void Canvas::mousePressEvent(QMouseEvent *event){
                shape->setOutline(outline);
             }
 
-        }else{
+        }
 
-        // select Object to be deleted
-        //std::cout<<" ( "<<event->pos().x()<<" , "<<event->pos().y()<<" ) "<<std::endl;
-        for( int i = AllShape.size() - 1 ; i != -1 ; --i) {
-           if(AllShape[i]->checkTheSelectedShape(event->pos())){
-               SelectedIndex = i ;
-               lastColorOfSelectedShap = AllShape[i]->getColor();
+        if(type == NONE){
 
-               //Set oppicity to the Shape
-               QColor newColorForSelectedShape = Qt::gray;
-               newColorForSelectedShape.setAlpha(100);
+            // select Object to be deleted
+            for( int i = AllShape.size() - 1 ; i != -1 ; --i) {
+               if(AllShape[i]->checkTheSelectedShape(event->pos())){
+                   SelectedIndex = i ;
+                   lastColorOfSelectedShap = AllShape[i]->getColor();
 
-               AllShape[i]->setColor(newColorForSelectedShape);
-               return;
-           }
-        }//end for loop and no shape was selected
-        SelectedIndex = -1 ;
+                   //Set oppicity to the Shape
+                   QColor newColorForSelectedShape = Qt::gray;
+                   newColorForSelectedShape.setAlpha(100);
 
+                   AllShape[i]->setColor(newColorForSelectedShape);
+                   //return;
+
+               }else{
+                   //no shape was selected
+                   SelectedIndex = -1 ;
+               }
+            }//end for loop
+
+            //no shape was selected
+            //SelectedIndex = -1 ;
 
         }
 
@@ -161,7 +161,6 @@ void Canvas::mouseMoveEvent(QMouseEvent *event){
 
         }
 
-
         update();
 
     }
@@ -180,7 +179,6 @@ void Canvas::mouseReleaseEvent(QMouseEvent *event){
                AllShape.push_back(shape);
                shape = nullptr;
            }
-
         }
 
         update();
