@@ -25,18 +25,24 @@ void Rectangle::draw(QPainter &painter){
 
 bool Rectangle::checkTheSelectedShape(QPoint p){
 
-    // swap start- and stop point if stop grather than start point
-    if(getStartPoint().y() > getStopPoint().y()){
+      // swap start- and stop point if stop grather than start point
+    if(getStartPoint().y() < getStopPoint().y()){
         QPoint y;
         y = getStopPoint();
         setStopPoint(getStartPoint());
         setStartPoint(y);
     }
 
-    return(p.y() >= getStartPoint().y() &&
-           p.y() <= getStopPoint().y()  &&
-           p.x() >= getStartPoint().x() &&
-           p.x() <= getStopPoint().x() );
+    float steigung = (float)(getStartPoint().y() - getStopPoint().y())/(getStartPoint().x() - getStopPoint().x());
+    
+    // wenn Y nicht stimmt
+    if(!(p.y() <= getStartPoint().y() &&   p.y() >= getStopPoint().y())) return false;
+    
+    // jenach Start- StopPunkt wird X anders geprüft mit Hilfe der Steigung der Diagonale
+    if (steigung<0)
+        return( p.x() >= getStartPoint().x() && p.x() <= getStopPoint().x() );         
+    else
+        return(p.x() <= getStartPoint().x() &&p.x() >= getStopPoint().x() );  
 
 }
 
