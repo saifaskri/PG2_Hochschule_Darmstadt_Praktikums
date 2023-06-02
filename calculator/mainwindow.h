@@ -23,6 +23,8 @@ private slots:
     void timclick();
 
 
+    void on_groupBox_operationen_clicked();
+
 private:
     Ui::MainWindow *ui;
 

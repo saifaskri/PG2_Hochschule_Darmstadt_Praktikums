@@ -23,6 +23,9 @@ public:
         NONE, FREE_HAND, CIRCLE, LINE, TRIANGLE, RECTANGLE, POLYGON
 	};
 
+    enum InteractionMode{ CREAT, DEL, COL, TRAFO };
+
+
 	Canvas(QWidget *parent = 0);
 	~Canvas();
 
@@ -49,6 +52,16 @@ public:
 
     std::vector<GraphObj *> AllShape;
 
+    //InteractionMode getOparation() const;
+    void setOparation(InteractionMode newOparation);
+
+    void Create(QMouseEvent *event);
+    void Delete(QMouseEvent *event);
+    void Coloring(QMouseEvent *event);
+    void Move(QMouseEvent *event);
+
+    void selectObj(QMouseEvent *event);
+
 protected:
 	void paintEvent(QPaintEvent *event);
 	void resizeEvent(QResizeEvent *event);
@@ -63,11 +76,15 @@ private:
     QColor color;
     bool outline = true;
 
+    QPoint startPoint;
+
     QColor lastColorOfSelectedShap;
 
     int SelectedIndex = -1 ;
 
     GraphObj *shape ;
+
+    InteractionMode oparation = DEL;
 
 };
 

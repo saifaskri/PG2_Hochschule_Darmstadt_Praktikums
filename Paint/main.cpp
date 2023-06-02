@@ -12,32 +12,41 @@ int main(int argc, char *argv[])
     return app.exec();
 }
 
-//#include <iostream>
-//#include <cmath>
-
-//struct Point {
-//    double x;
-//    double y;
-//};
-
-//double calculateAngle(Point a, Point b) {
-//    double angle = atan2(b.y - a.y, b.x - a.x);
-//    // Winkel in Bogenmaß
-//    if (angle < 0) {
-//        angle += 2 * M_PI;
-//    }
-//    // Winkel in Grad umrechnen
-//    angle = angle * 180.0 / M_PI;
-//    return angle;
+//#include<iostream>
+//void groupBoxChanged(){
+//    std::cout<<"clicked"<<std::endl;
 //}
 
-//int main() {
-//    Point a = {0.0, 0.0};
-//    Point b = {1.0, 1.0};
-//    double angle = calculateAngle(a, b);
-//    std::cout << "Winkel zwischen a und b: " << angle << " Grad" << std::endl;
-//    return 0;
+//#include <QtWidgets>
+
+//int main(int argc, char *argv[]) {
+//    QApplication app(argc, argv);
+
+//    QWidget window;
+//    QVBoxLayout layout(&window);
+
+//    QGroupBox groupBox("Radio Buttons");
+//    QVBoxLayout groupLayout;
+//    groupBox.setLayout(&groupLayout);
+
+//    QRadioButton radio1("Option 1");
+//    QRadioButton radio2("Option 2");
+//    QRadioButton radio3("Option 3");
+
+//    QButtonGroup buttonGroup;
+//    buttonGroup.addButton(&radio1);
+//    buttonGroup.addButton(&radio2);
+//    buttonGroup.addButton(&radio3);
+
+//    groupLayout.addWidget(&radio1);
+//    groupLayout.addWidget(&radio2);
+//    groupLayout.addWidget(&radio3);
+
+//    layout.addWidget(&groupBox);
+
+
+//    window.setLayout(&layout);
+//    window.show();
+
+//    return app.exec();
 //}
-
-
-

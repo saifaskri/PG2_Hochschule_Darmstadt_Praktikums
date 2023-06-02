@@ -22,7 +22,7 @@ Paint::Paint(QWidget *parent): QWidget(parent)
     cobPrimModes->addItem(tr("Freehand"), Canvas::FREE_HAND);
     cobPrimModes->addItem(tr("Circle"), Canvas::CIRCLE);
     cobPrimModes->addItem(tr("Rectangle"), Canvas::RECTANGLE);
-    //cobPrimModes->addItem(tr("Triangle"), Canvas::TRIANGLE);
+    cobPrimModes->addItem(tr("Triangle"), Canvas::TRIANGLE);
     //cobPrimModes->addItem(tr("Polygon"), Canvas::POLYGON);
 
 	lblPrimModes = new QLabel("Primitive Mode");
@@ -33,17 +33,62 @@ Paint::Paint(QWidget *parent): QWidget(parent)
     btnChangeCol = new QPushButton("C&hange Color");
 
     cbOutline = new QCheckBox("Show Only &Outline", this);
+    BBox = new QCheckBox("Show BBox", this);
+
+
+
+
+    //1
+     groupBox = new QGroupBox("Radio Buttons");
+    //2
+    QVBoxLayout* groupBoxLayout = new QVBoxLayout();
+    groupBox->setLayout(groupBoxLayout);
+    //3
+    QRadioButton* creating = new QRadioButton("Create");
+    QRadioButton* deleting = new QRadioButton("Delete Selected");
+    QRadioButton* coloring = new QRadioButton("Change Color");
+    QRadioButton* moving = new QRadioButton("Move Selected");
+    //4
+    action = new QButtonGroup(this);
+    //5
+    action->addButton(creating);
+    action->addButton(deleting);
+    action->addButton(coloring);
+    action->addButton(moving);
+    //6
+    action->addButton(creating,Canvas::InteractionMode::CREAT);
+    action->addButton(deleting,Canvas::InteractionMode::DEL);
+    action->addButton(coloring,Canvas::InteractionMode::COL);
+    action->addButton(moving,Canvas::InteractionMode::TRAFO);
+    //7
+    groupBoxLayout->addWidget(creating);
+    groupBoxLayout->addWidget(deleting);
+    groupBoxLayout->addWidget(coloring);
+    groupBoxLayout->addWidget(moving);
+    //8
+    //connect(action, QOverload<QAbstractButton*>::of(&QButtonGroup::buttonClicked), this, &Paint::groupBoxChanged);
+
+
+
 
 	// create layout and add gui elements to it
 	QGridLayout *mainLayout = new QGridLayout;
 
     mainLayout->addWidget(viewport,       0, 0, 1, 4);
-    mainLayout->addWidget(btnChangeCol,   1, 0);
-    mainLayout->addWidget(cbOutline,      1, 1, Qt::AlignLeft);
-    mainLayout->addWidget(lblPrimModes,   1, 2, Qt::AlignRight);
+    mainLayout->addWidget(groupBox,   1, 0 ,3,2);
+
+    mainLayout->addWidget(lblPrimModes,   1, 2,Qt::AlignRight);
     mainLayout->addWidget(cobPrimModes,   1, 3);
-    mainLayout->addWidget(btnDeleteObj,   2, 0);
-    mainLayout->addWidget(btnClearCanvas, 2, 3);
+
+    mainLayout->addWidget(btnChangeCol,   2, 3);
+
+    mainLayout->addWidget(cbOutline,      2, 2, Qt::AlignRight);
+
+    mainLayout->addWidget(btnClearCanvas,3, 3);
+    mainLayout->addWidget(BBox,      3, 2, Qt::AlignRight);
+
+    //mainLayout->addWidget(btnDeleteObj,   2, 0);
+
 
 	// add layout to this widget instance
 	setLayout(mainLayout);
@@ -63,12 +108,24 @@ Paint::Paint(QWidget *parent): QWidget(parent)
     // connect checkbox to toggle outline event handler
     connect(cbOutline, SIGNAL(toggled(bool)),
             this, SLOT(showOutlineOnly(bool)));
+    // connect checkbox to toggle BBox event handler
+    connect(BBox, SIGNAL(toggled(bool)),
+            this, SLOT(BBoxPressed(bool)));
+    // connect groupButton to toggle action event handler
+    connect(action, QOverload<QAbstractButton*>::of(&QButtonGroup::buttonClicked),
+            this, &Paint::groupBoxChanged);
 
 }
 
 /** d'tor */
 Paint::~Paint(){
-
+    delete groupBox;
+    delete groupBoxLayout;
+    delete creating;
+    delete deleting;
+    delete coloring;
+    delete moving;
+    delete action;
 }
 
 /** method for handling button clicked event */
@@ -107,6 +164,19 @@ void Paint::showOutlineOnly(bool outline){
     qDebug() << "Only show outline: " << outline;
     viewport->setOutline(!viewport->getOutline());
 }
+
+void Paint::BBoxPressed(bool bbox)
+{
+    qDebug() << "BBox : " << bbox;
+}
+
+void Paint::groupBoxChanged()
+{
+    std::cout<<"action change"<<std::endl;
+    // you need to cast das here
+    viewport->setOparation((Canvas::InteractionMode)action->checkedId());
+}
+
 
 void Paint::primModeChanged(){
 	int mode = cobPrimModes->itemData(cobPrimModes->currentIndex(), Qt::UserRole).toInt();

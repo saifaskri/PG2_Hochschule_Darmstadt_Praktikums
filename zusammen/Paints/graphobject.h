@@ -1,6 +1,7 @@
 #ifndef GRAPHOBJECT_H
 #define GRAPHOBJECT_H
-#include "qpainter.h"
+
+#include<QPainter>
 #include <QPoint>
 #include<iostream>
 

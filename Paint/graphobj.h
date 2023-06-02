@@ -1,7 +1,7 @@
 #ifndef GRAPHOBJ_H
 #define GRAPHOBJ_H
 
-#include "qpainter.h"
+#include <QPainter>
 #include<QPoint>
 #include <QPainter>
 
@@ -12,6 +12,9 @@ class GraphObj
 public:
 
     GraphObj();
+    GraphObj(const GraphObj& graph);
+    GraphObj& operator=(const GraphObj& graph)const;
+
     virtual ~GraphObj();
 
     virtual void draw(QPainter &painter) = 0;

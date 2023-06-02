@@ -28,7 +28,7 @@ bool FreeHand::checkTheSelectedShape(QPoint p){
 
         vector = p - k->startPoint ;
 
-         if ( RANGE > sqrt( (vector.x()*vector.x()) + (vector.y()*vector.y()) )   ){
+         if ( RANGEs > sqrt( (vector.x()*vector.x()) + (vector.y()*vector.y()) )   ){
              return true;
         }
 

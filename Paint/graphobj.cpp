@@ -4,8 +4,24 @@ GraphObj::GraphObj(){
 
 }
 
+GraphObj::GraphObj(const GraphObj &graph)
+{
+    this->startPoint =  graph.startPoint ;
+    this->stopPoint =  graph.stopPoint ;
+    this->color = graph.color ;
+    this->outline = graph.outline ;
+}
+
+GraphObj &GraphObj::operator=(const GraphObj &graph) const
+{
+//    if(*this != graph ){
+
+//    }
+//    return this;
+}
+
 GraphObj::~GraphObj(){
-    delete this;
+
 }
 
 QPoint GraphObj::getStopPoint() const

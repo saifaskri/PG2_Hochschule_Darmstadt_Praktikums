@@ -179,3 +179,49 @@ namespace Ui {
 QT_END_NAMESPACE
 
 #endif // UI_MAINWINDOW_H
+
+
+
+//#include <QtWidgets/QApplication>
+//#include <QtWidgets/QGroupBox>
+//#include <QtWidgets/QRadioButton>
+//#include <QtWidgets/QVBoxLayout>
+
+//int main(int argc, char *argv[]) {
+//    QApplication app(argc, argv);
+
+//    QGroupBox* groupBox = new QGroupBox("Radio Buttons");
+
+//    QRadioButton* radio1 = new QRadioButton("Option 1");
+//    QRadioButton* radio2 = new QRadioButton("Option 2");
+
+//    QVBoxLayout* layout = new QVBoxLayout;
+//    layout->addWidget(radio1);
+//    layout->addWidget(radio2);
+
+//    groupBox->setLayout(layout);
+
+//    radio1->setChecked(true);  // Optional: Set the default checked radio button
+
+//    groupBox->show();
+
+//    return app.exec();
+//}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

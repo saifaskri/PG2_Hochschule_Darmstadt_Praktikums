@@ -56,3 +56,9 @@ void MainWindow::timclick()
 {
 }
 
+
+void MainWindow::on_groupBox_operationen_clicked()
+{
+
+}
+

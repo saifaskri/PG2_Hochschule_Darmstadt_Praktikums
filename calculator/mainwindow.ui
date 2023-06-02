@@ -195,45 +195,6 @@
      </item>
     </layout>
    </widget>
-   <widget class="QGroupBox" name="timbg">
-    <property name="geometry">
-     <rect>
-      <x>750</x>
-      <y>260</y>
-      <width>161</width>
-      <height>211</height>
-     </rect>
-    </property>
-    <property name="title">
-     <string>Groh54wz5trhupBox</string>
-    </property>
-    <widget class="QRadioButton" name="myminus">
-     <property name="geometry">
-      <rect>
-       <x>30</x>
-       <y>40</y>
-       <width>112</width>
-       <height>26</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>m,nius</string>
-     </property>
-    </widget>
-    <widget class="QRadioButton" name="radioButton_2">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>90</y>
-       <width>112</width>
-       <height>26</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>RadioButton</string>
-     </property>
-    </widget>
-   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -241,7 +202,7 @@
      <x>0</x>
      <y>0</y>
      <width>1002</width>
-     <height>21</height>
+     <height>25</height>
     </rect>
    </property>
   </widget>
