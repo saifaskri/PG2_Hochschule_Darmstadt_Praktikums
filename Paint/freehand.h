@@ -20,6 +20,7 @@ public:
     FreeHand();
     virtual ~FreeHand();
     void draw(QPainter &painter);
+    void move(QPoint vector);
     bool checkTheSelectedShape(QPoint);
     std::vector<koordinate *>pointHestory;
 };

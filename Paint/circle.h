@@ -10,6 +10,7 @@ public:
     Circle();
     virtual ~Circle();
     void draw(QPainter &painter);
+    void move(QPoint vector);
     bool checkTheSelectedShape(QPoint);
 
     int getDiameter() const;

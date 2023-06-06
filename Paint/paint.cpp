@@ -45,6 +45,7 @@ Paint::Paint(QWidget *parent): QWidget(parent)
     groupBox->setLayout(groupBoxLayout);
     //3
     QRadioButton* creating = new QRadioButton("Create");
+    creating->setChecked(true);
     QRadioButton* deleting = new QRadioButton("Delete Selected");
     QRadioButton* coloring = new QRadioButton("Change Color");
     QRadioButton* moving = new QRadioButton("Move Selected");
@@ -139,12 +140,12 @@ void Paint::clearBtnPressed(){
 void Paint::deleteBtnPressed()
 {
 
-    if(viewport->getSelectedIndex() != -1){
-        viewport->AllShape.erase(viewport->AllShape.begin()+viewport->getSelectedIndex());
-        //reset SelectedIndex to -1 for the next Shape
-        viewport->setSelectedIndex(-1) ;
-        viewport->update();
-    }
+//    if(viewport->getSelectedIndex() != -1){
+//        viewport->AllShape.erase(viewport->AllShape.begin()+viewport->getSelectedIndex());
+//        //reset SelectedIndex to -1 for the next Shape
+//        viewport->setSelectedIndex(-1) ;
+//        viewport->update();
+//    }
 
 
 }
@@ -176,7 +177,6 @@ void Paint::groupBoxChanged()
     // you need to cast das here
     viewport->setOparation((Canvas::InteractionMode)action->checkedId());
 }
-
 
 void Paint::primModeChanged(){
 	int mode = cobPrimModes->itemData(cobPrimModes->currentIndex(), Qt::UserRole).toInt();

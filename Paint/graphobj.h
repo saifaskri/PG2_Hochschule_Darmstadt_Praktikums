@@ -18,6 +18,9 @@ public:
     virtual ~GraphObj();
 
     virtual void draw(QPainter &painter) = 0;
+    virtual void move(QPoint vector) = 0;
+    virtual bool checkTheSelectedShape(QPoint) = 0 ;
+
 
     QPoint getStopPoint() const;
     void setStopPoint(QPoint newStopPoint);
@@ -25,7 +28,6 @@ public:
     QPoint getStartPoint() const;
     void setStartPoint(QPoint newStartPoint);
 
-    virtual bool checkTheSelectedShape(QPoint) = 0 ;
 
     bool getOutline() const;
 
@@ -50,3 +52,17 @@ private:
 };
 
 #endif // GRAPHOBJ_H
+
+
+
+
+
+
+
+
+
+
+
+
+
+

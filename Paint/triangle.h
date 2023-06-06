@@ -13,6 +13,7 @@ public:
     virtual ~Triangle();
     void draw(QPainter &painter);
     bool checkTheSelectedShape(QPoint p);
+    void move(QPoint vector);
 
     bool getDone() const;
     void setDone(bool newDone);

@@ -21,6 +21,11 @@ void Circle::draw(QPainter &painter){
 
 }
 
+void Circle::move(QPoint vector){
+    setStartPoint(getStartPoint() + vector);
+    setStopPoint(getStopPoint() + vector);
+}
+
 bool Circle::checkTheSelectedShape(QPoint p){
 
     int distancePointToCenter = std::sqrt( (getStartPoint().x() - p.x()) *

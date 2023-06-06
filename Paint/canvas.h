@@ -11,7 +11,7 @@
 
 
 #include "graphobj.h"
-
+#include "scene.h"
 
 class Canvas : public QFrame
 {
@@ -47,10 +47,7 @@ public:
     bool getOutline() const;
     void setOutline(bool newOutline);
 
-    int getSelectedIndex() const;
-    void setSelectedIndex(int newSelectedIndex);
 
-    std::vector<GraphObj *> AllShape;
 
     //InteractionMode getOparation() const;
     void setOparation(InteractionMode newOparation);
@@ -58,9 +55,9 @@ public:
     void Create(QMouseEvent *event);
     void Delete(QMouseEvent *event);
     void Coloring(QMouseEvent *event);
-    void Move(QMouseEvent *event);
+    void Move(QPoint startPoint, QPoint endPoint);
 
-    void selectObj(QMouseEvent *event);
+
 
 protected:
 	void paintEvent(QPaintEvent *event);
@@ -76,15 +73,17 @@ private:
     QColor color;
     bool outline = true;
 
-    QPoint startPoint;
+    Scene* scene;
+    GraphObj *shape ;
+
 
     QColor lastColorOfSelectedShap;
 
-    int SelectedIndex = -1 ;
+    InteractionMode oparation ;
 
-    GraphObj *shape ;
+    QPoint startPoint;
+    QPoint StopPoint;
 
-    InteractionMode oparation = DEL;
 
 };
 

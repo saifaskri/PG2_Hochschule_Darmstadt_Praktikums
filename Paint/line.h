@@ -11,6 +11,7 @@ public:
     Line();
     virtual ~Line();
     void draw(QPainter &painter);
+    void move(QPoint vector);
     bool checkTheSelectedShape(QPoint p);
     float getSteigung();
     float getConstanteB();

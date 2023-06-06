@@ -12,6 +12,7 @@ HEADERS += paint.h \
            graphobj.h \
            line.h \
            rectangle.h \
+           scene.h \
            triangle.h
 SOURCES += paint.cpp \
            canvas.cpp \
@@ -21,4 +22,5 @@ SOURCES += paint.cpp \
            line.cpp \
            main.cpp \
            rectangle.cpp \
+           scene.cpp \
            triangle.cpp

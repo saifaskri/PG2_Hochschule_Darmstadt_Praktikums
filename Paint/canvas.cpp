@@ -1,5 +1,4 @@
 #include "canvas.h"
-
 #include "freehand.h"
 #include "line.h"
 #include "circle.h"
@@ -7,73 +6,56 @@
 #include "triangle.h"
 
 bool CheckIfShapeIsAcceptable(GraphObj *obj){
-
     // Free hand is allways true
     FreeHand* freeHandObj;
-    if( (freeHandObj = dynamic_cast<FreeHand*>(obj)) ){
-        return true;
-    }
-
+    if( (freeHandObj = dynamic_cast<FreeHand*>(obj)) ){return true;}
 
     int length = std::sqrt( (obj->getStartPoint().x() - obj->getStopPoint().x()) *
                             (obj->getStartPoint().x() - obj->getStopPoint().x()) +
                             (obj->getStartPoint().y() - obj->getStopPoint().y()) *
                             (obj->getStartPoint().y() - obj->getStopPoint().y()) );
-    if(length > 20)
-        return true;
-    else
-        return false;
+    if(length > 20) return true;
+    else return false;
 }
 
 Canvas::Canvas(QWidget *parent): QFrame(parent){
     setFrameStyle(QFrame::Box);
     setMouseTracking(true);
+    scene = new Scene();
     type = NONE;
     dragging = false;
     shape = nullptr;
-
 }
 
 Canvas::~Canvas(){
-
+    delete shape;
+    delete scene;
 }
 
-QSize Canvas::minimumSizeHint() const
-{
+QSize Canvas::minimumSizeHint() const{
     return QSize(200, 200);
 }
 
-QSize Canvas::sizeHint() const
-{
+QSize Canvas::sizeHint() const{
     return QSize(640, 480);
 }
 
 void Canvas::clearCanvas(void){
-
-    AllShape.clear();
-
+    scene->DeleteAllShape();
 }
 
 void Canvas::setPrimitiveMode(int mode){
-
     type = (Canvas::PrimitiveMode)mode;
-
 }
 
 void Canvas::paintEvent(QPaintEvent *event){
-
     QFrame::paintEvent(event);  // parent class draws border
     QPainter painter(this);
-
-    for(int i = 0; i < (int)AllShape.size(); i++){
-        AllShape[i]->draw(painter);
-    }
-
-    //draw the Shape
+    // draw all old Shapes
+    scene->draw(painter);
+    //draw the new Shape
     if(shape != nullptr){shape->draw(painter);}
-
 }
-
 
 void Canvas::Create(QMouseEvent *event){
 
@@ -108,92 +90,27 @@ void Canvas::Create(QMouseEvent *event){
     }
 }
 
-
 void Canvas::Delete(QMouseEvent *event){
-
-    selectObj(event);
-    if(getSelectedIndex() == -1) return;
-
-    AllShape.erase(AllShape.begin()+getSelectedIndex());
-    //reset SelectedIndex to -1 for the next Shape
-    setSelectedIndex(-1) ;
+    scene->deleteShape(event);
     update();
-
-
 }
 
 void Canvas::Coloring(QMouseEvent *event){
-
-    selectObj(event);
-    if(getSelectedIndex() == -1) return;
-
-    AllShape[getSelectedIndex()]->setColor(getColor());
-
-    setSelectedIndex(-1) ;
-
+    scene->colorShape(event,getColor());
     update();
-
 }
 
-void Canvas::Move(QMouseEvent *event ){
-
-    selectObj(event);
-    if(getSelectedIndex() == -1) return;
-    QPoint newPlace;
-
-    newPlace.setX(AllShape[getSelectedIndex()]->getStartPoint().x() + (event->pos().x() - this->startPoint.x() ));
-
-    newPlace.setY(AllShape[getSelectedIndex()]->getStartPoint().y() + (event->pos().y() - this->startPoint.y() ));
-
-    AllShape[getSelectedIndex()]->setStartPoint(newPlace);
-    std::cout<<"implementiere mich Move"<<std::endl;
+void Canvas::Move(QPoint startPoint, QPoint endPoint ){
+    scene->moveShape(startPoint,endPoint);
     update();
-
 }
-
-void Canvas::selectObj(QMouseEvent *event){
-
-//    lastColorOfSelectedShap = AllShape[i]->getColor();
-//    //Set oppicity to the Shape
-//    QColor newColorForSelectedShape = Qt::gray;
-//    newColorForSelectedShape.setAlpha(100);
-//    AllShape[i]->setColor(newColorForSelectedShape);
-
-    // select Object to be deleted
-    SelectedIndex = -1 ;
-
-    for( int i = AllShape.size() - 1 ; i != -1 ; --i) {
-
-       if(AllShape[i]->checkTheSelectedShape(event->pos())){
-
-           SelectedIndex = i ;
-
-           break;
-
-        }
-    }//end for loop
-
-
-}
-
-
-
 
 void Canvas::mousePressEvent(QMouseEvent *event){
 
     if (event->button() == Qt::LeftButton) {
         dragging = true;
 
-        //begin block
-            //if Object was selected but not deleted
-            if(SelectedIndex != -1){
-             // AllShape[SelectedIndex]->setColor(lastColorOfSelectedShap);
-              SelectedIndex = -1;
-            }
-        //end Block
-
         this->startPoint = event->pos();
-
         switch (oparation) {
             case CREAT:
                 Create(event);
@@ -205,14 +122,16 @@ void Canvas::mousePressEvent(QMouseEvent *event){
                 Coloring(event);
                 break;
             case TRAFO:
-                Move(event);
+
+                this->startPoint = event->pos();
+                this->StopPoint = event->pos();
+                //set The Object that was selected
+                scene->setSelectedIndex(scene->selectObj(event->pos()));
+                Move( this->startPoint, this->StopPoint);
                 break;
             default:
                 break;
         }
-
-
-
         update();
     }
 
@@ -232,7 +151,10 @@ void Canvas::mouseMoveEvent(QMouseEvent *event){
                 shape->setStartPoint(event->pos());
             }
         }else if(oparation == TRAFO){
-            Move(event);
+            this->StopPoint = event->pos();
+            Move(this->startPoint,this->StopPoint);
+            this->startPoint = event->pos();
+
         }
 
         update();
@@ -241,66 +163,47 @@ void Canvas::mouseMoveEvent(QMouseEvent *event){
 }
 
 void Canvas::mouseReleaseEvent(QMouseEvent *event){
-
     if (event->button() == Qt::LeftButton && dragging) {
-
         dragging = false;
-
+        //Create
         if(shape != nullptr && type != NONE){
            shape->setStopPoint(event->pos());
            //Save Shape but need more Contorlle for how much big is my shape
            if(CheckIfShapeIsAcceptable(shape)){
-               AllShape.push_back(shape);
+               scene->AddShape(shape);
                shape = nullptr;
            }
         }
-
+        if(oparation == TRAFO){
+            this->StopPoint = event->pos();
+            Move(this->startPoint,this->StopPoint);
+            //reinitial The Object that was selected to -1
+            scene->setSelectedIndex(-1);
+        }
         update();
-
     }
 }
 
-//Canvas::InteractionMode Canvas::getOparation() const
-//{
-//    return oparation;
-//}
-
-void Canvas::setOparation(InteractionMode newOparation)
-{
+void Canvas::setOparation(InteractionMode newOparation){
     oparation = newOparation;
-}
-
-
-int Canvas::getSelectedIndex() const
-{
-    return SelectedIndex;
-}
-
-void Canvas::setSelectedIndex(int newSelectedIndex)
-{
-    SelectedIndex = newSelectedIndex;
 }
 
 void Canvas::resizeEvent(QResizeEvent *event){
     QFrame::resizeEvent(event);
 }
 
-bool Canvas::getOutline() const
-{
+bool Canvas::getOutline() const{
     return outline;
 }
 
-void Canvas::setOutline(bool newOutline)
-{
+void Canvas::setOutline(bool newOutline){
     outline = newOutline;
 }
 
-QColor Canvas::getColor() const
-{
+QColor Canvas::getColor() const{
     return color;
 }
 
-void Canvas::setColor(const QColor &newColor)
-{
+void Canvas::setColor(const QColor &newColor){
     color = newColor;
 }

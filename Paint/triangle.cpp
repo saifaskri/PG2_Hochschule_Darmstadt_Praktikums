@@ -29,6 +29,11 @@ bool Triangle::checkTheSelectedShape(QPoint p)
     return false;
 }
 
+void Triangle::move(QPoint vector)
+{
+
+}
+
 bool Triangle::getDone() const
 {
     return done;

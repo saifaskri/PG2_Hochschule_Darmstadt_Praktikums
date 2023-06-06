@@ -12,13 +12,13 @@ GraphObj::GraphObj(const GraphObj &graph)
     this->outline = graph.outline ;
 }
 
-GraphObj &GraphObj::operator=(const GraphObj &graph) const
-{
-//    if(*this != graph ){
+//GraphObj &GraphObj::operator=(const GraphObj &graph) const
+//{
+////    if(*this != graph ){
 
-//    }
-//    return this;
-}
+////    }
+////    return this;
+//}
 
 GraphObj::~GraphObj(){
 

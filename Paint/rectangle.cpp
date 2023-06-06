@@ -25,9 +25,16 @@ void Rectangle::draw(QPainter &painter){
 
 }
 
+void Rectangle::move(QPoint vector){
+    setStartPoint(getStartPoint() + vector);
+    setStopPoint(getStopPoint() + vector);
+}
+
 bool Rectangle::checkTheSelectedShape(QPoint p){
 
     // swap start- and stop point if stop grather than start point
+      // swap start- and stop point if stop grather than start point
+
     if(getStartPoint().y() < getStopPoint().y()){
         QPoint y;
         y = getStopPoint();
@@ -45,6 +52,15 @@ bool Rectangle::checkTheSelectedShape(QPoint p){
         return( p.x() >= getStartPoint().x() && p.x() <= getStopPoint().x() );
     else
         return(p.x() <= getStartPoint().x() &&p.x() >= getStopPoint().x() );
+    
+    // wenn Y nicht stimmt
+    if(!(p.y() <= getStartPoint().y() &&   p.y() >= getStopPoint().y())) return false;
+    
+    // jenach Start- StopPunkt wird X anders geprüft mit Hilfe der Steigung der Diagonale
+    if (steigung<0)
+        return( p.x() >= getStartPoint().x() && p.x() <= getStopPoint().x() );         
+    else
+        return(p.x() <= getStartPoint().x() &&p.x() >= getStopPoint().x() );  
 
 }
 

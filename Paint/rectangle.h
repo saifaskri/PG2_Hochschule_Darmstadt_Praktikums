@@ -10,6 +10,7 @@ public:
     Rectangle();
     virtual ~Rectangle();
     void draw(QPainter &painter);
+    void move(QPoint vector);
     bool checkTheSelectedShape(QPoint p);
 
 

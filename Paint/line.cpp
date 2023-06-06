@@ -19,6 +19,11 @@ void Line::draw(QPainter &painter){
 
 }
 
+void Line::move(QPoint vector){
+    setStartPoint(getStartPoint() + vector);
+    setStopPoint(getStopPoint() + vector);
+}
+
 float Line::getSteigung(){
 
     float a = (float)(getStartPoint().y() - getStopPoint().y())/(getStartPoint().x() - getStopPoint().x());
