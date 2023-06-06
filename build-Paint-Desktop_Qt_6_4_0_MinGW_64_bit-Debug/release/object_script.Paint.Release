@@ -1,0 +1,11 @@
+release/paint.o
+release/canvas.o
+release/circle.o
+release/freehand.o
+release/graphobj.o
+release/line.o
+release/main.o
+release/rectangle.o
+release/triangle.o
+release/moc_paint.o
+release/moc_canvas.o

@@ -1,0 +1,79 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Debug-afcb9841fddf809dfef0.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "praktikum3",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "praktikum3::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-praktikum3-Debug-c4d0fedc5819a5805a93.json",
+					"name" : "praktikum3",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "praktikum3_autogen::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-praktikum3_autogen-Debug-b78f925496d96157d6e3.json",
+					"name" : "praktikum3_autogen",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "praktikum3_autogen_timestamp_deps::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-praktikum3_autogen_timestamp_deps-Debug-aa66c0337b4d68414515.json",
+					"name" : "praktikum3_autogen_timestamp_deps",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/Users/saifa/Desktop/Hochschule/PG2_Hochschule_Darmstadt_Praktikums/build-praktikum3-Desktop_Qt_6_4_0_MinGW_64_bit-Debug",
+		"source" : "C:/Users/saifa/Desktop/Hochschule/PG2_Hochschule_Darmstadt_Praktikums/praktikum3"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 4
+	}
+}

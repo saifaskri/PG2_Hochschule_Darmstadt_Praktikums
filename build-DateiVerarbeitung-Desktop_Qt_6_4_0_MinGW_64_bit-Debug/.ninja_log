@@ -1,0 +1,13 @@
+# ninja log v5
+2	141	7051652475064769	build.ninja	f9ef7bd9f1e67e17
+381	497	7076783999314057	DateiVerarbeitung.exe	13aa4aa649c6c784
+20	1409	7076749455166277	CMakeFiles/DateiVerarbeitung.dir/dateiverarbeitung.cpp.obj	d13aaf2fa275f6e8
+3	380	7076783998191799	CMakeFiles/DateiVerarbeitung.dir/main.cpp.obj	53532604ab2c7831
+4	434	7076784853547433	CMakeFiles/DateiVerarbeitung.dir/main.cpp.obj	53532604ab2c7831
+435	548	7076784854608350	DateiVerarbeitung.exe	13aa4aa649c6c784
+3	372	7076785454245084	CMakeFiles/DateiVerarbeitung.dir/main.cpp.obj	53532604ab2c7831
+372	485	7076785455310854	DateiVerarbeitung.exe	13aa4aa649c6c784
+2	371	7076785971915648	CMakeFiles/DateiVerarbeitung.dir/main.cpp.obj	53532604ab2c7831
+372	502	7076785973180415	DateiVerarbeitung.exe	13aa4aa649c6c784
+4	442	7076786879354857	CMakeFiles/DateiVerarbeitung.dir/main.cpp.obj	53532604ab2c7831
+442	578	7076786880627655	DateiVerarbeitung.exe	13aa4aa649c6c784

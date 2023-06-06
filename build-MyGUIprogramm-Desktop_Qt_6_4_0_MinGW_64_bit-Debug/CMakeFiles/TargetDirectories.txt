@@ -1,0 +1,9 @@
+C:/Users/saifa/Desktop/Hochschule/PG2_Hochschule_Darmstadt_Praktikums/build-MyGUIprogramm-Desktop_Qt_6_4_0_MinGW_64_bit-Debug/CMakeFiles/MyGUIprogramm.dir
+C:/Users/saifa/Desktop/Hochschule/PG2_Hochschule_Darmstadt_Praktikums/build-MyGUIprogramm-Desktop_Qt_6_4_0_MinGW_64_bit-Debug/CMakeFiles/edit_cache.dir
+C:/Users/saifa/Desktop/Hochschule/PG2_Hochschule_Darmstadt_Praktikums/build-MyGUIprogramm-Desktop_Qt_6_4_0_MinGW_64_bit-Debug/CMakeFiles/rebuild_cache.dir
+C:/Users/saifa/Desktop/Hochschule/PG2_Hochschule_Darmstadt_Praktikums/build-MyGUIprogramm-Desktop_Qt_6_4_0_MinGW_64_bit-Debug/CMakeFiles/list_install_components.dir
+C:/Users/saifa/Desktop/Hochschule/PG2_Hochschule_Darmstadt_Praktikums/build-MyGUIprogramm-Desktop_Qt_6_4_0_MinGW_64_bit-Debug/CMakeFiles/install.dir
+C:/Users/saifa/Desktop/Hochschule/PG2_Hochschule_Darmstadt_Praktikums/build-MyGUIprogramm-Desktop_Qt_6_4_0_MinGW_64_bit-Debug/CMakeFiles/install/local.dir
+C:/Users/saifa/Desktop/Hochschule/PG2_Hochschule_Darmstadt_Praktikums/build-MyGUIprogramm-Desktop_Qt_6_4_0_MinGW_64_bit-Debug/CMakeFiles/install/strip.dir
+C:/Users/saifa/Desktop/Hochschule/PG2_Hochschule_Darmstadt_Praktikums/build-MyGUIprogramm-Desktop_Qt_6_4_0_MinGW_64_bit-Debug/CMakeFiles/MyGUIprogramm_autogen_timestamp_deps.dir
+C:/Users/saifa/Desktop/Hochschule/PG2_Hochschule_Darmstadt_Praktikums/build-MyGUIprogramm-Desktop_Qt_6_4_0_MinGW_64_bit-Debug/CMakeFiles/MyGUIprogramm_autogen.dir

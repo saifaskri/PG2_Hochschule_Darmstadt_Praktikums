@@ -1,0 +1,1 @@
+ rm programmi.exe && g++  main.cpp stall.cpp shetlandpony.cpp ponyhof.cpp pony.cpp islandpferd.cpp extrafunktionen.cpp -o programmi -lstdc++ && ./programmi.exe a.txt

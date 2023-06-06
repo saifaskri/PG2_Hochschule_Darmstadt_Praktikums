@@ -1,0 +1,44 @@
+{
+  "students": [
+    {
+      "Nachname": "Nachname",
+      "Vorname": "Vorname",
+      "Matrikelnummer": MatrNr,
+      "Semester": "Semester",
+      "Gruppe": "Gruppe",
+      "Note": 0.0
+    },
+    {
+      "Nachname": "saif",
+      "Vorname": "Eva",
+      "Matrikelnummer": 1120763,
+      "Semester": "Bachelor 2",
+      "Gruppe": "Do45x",
+      "Note": 2.0
+    },
+    {
+      "Nachname": "Mustermann",
+      "Vorname": "Max",
+      "Matrikelnummer": 1119771,
+      "Semester": "Bachelor 2",
+      "Gruppe": "Do45x",
+      "Note": 1.0
+    },
+    {
+      "Nachname": "Taraszowa",
+      "Vorname": "Olga",
+      "Matrikelnummer": 1120668,
+      "Semester": "Bachelor 2",
+      "Gruppe": "Do45y",
+      "Note": 1.0
+    },
+    {
+      "Nachname": "askri",
+      "Vorname": "Tobias",
+      "Matrikelnummer": 1120968,
+      "Semester": "Bachelor 2",
+      "Gruppe": "Do45y",
+      "Note": 2.0
+    }
+  ]
+}
