@@ -4,6 +4,43 @@
 FreeHand::FreeHand(){
 }
 
+FreeHand::FreeHand(const FreeHand &graph){
+
+    this->setStartPoint(graph.getStartPoint());
+    this->setStopPoint( graph.getStopPoint());
+    this->setColor(graph.getColor());
+    this->setOutline(graph.getOutline());
+
+    for (int i = 0; (size_t)i < pointHestory.size(); ++i){
+        koordinate *k = new koordinate(pointHestory[i]->startPoint,
+                                       pointHestory[i]->stopPoint);
+        this->pointHestory.push_back(k);
+    }
+
+}
+
+FreeHand &FreeHand::operator=(const FreeHand &graph)
+{
+    this->setStartPoint(graph.getStartPoint());
+    this->setStopPoint( graph.getStopPoint());
+    this->setColor(graph.getColor());
+    this->setOutline(graph.getOutline());
+
+    // check if the Operation is a = a then do nothing ;
+    //but a = b ; is okey
+    if (this != &graph) {
+        for (int i = 0; (size_t)i < pointHestory.size(); ++i){
+            koordinate *k = new koordinate(graph.pointHestory[i]->startPoint,
+                                           graph.pointHestory[i]->stopPoint);
+            this->pointHestory.push_back(k);
+
+        }
+
+    }
+
+    return *this;
+}
+
 FreeHand::~FreeHand(){
 }
 

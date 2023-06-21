@@ -12,15 +12,16 @@ class GraphObj
 public:
 
     GraphObj();
-    GraphObj(const GraphObj& graph);
-    GraphObj& operator=(const GraphObj& graph)const;
 
+    GraphObj(const GraphObj& graph) = delete ;
+    GraphObj& operator=(const GraphObj& graph) = delete  ;
     virtual ~GraphObj();
 
     virtual void draw(QPainter &painter) = 0;
     virtual void move(QPoint vector) = 0;
     virtual bool checkTheSelectedShape(QPoint) = 0 ;
-
+    void setBrushForTheObject(QPainter &painter);
+    virtual bool drawingIsDone();
 
     QPoint getStopPoint() const;
     void setStopPoint(QPoint newStopPoint);
@@ -28,17 +29,17 @@ public:
     QPoint getStartPoint() const;
     void setStartPoint(QPoint newStartPoint);
 
-
     bool getOutline() const;
-
     void setOutline(bool newOutline);
 
     QColor getColor() const;
     void setColor(const QColor &newColor);
-    void setBrushForTheObject(QPainter &painter);
+
+    bool getDoneDrawing() const;
+    void setDoneDrawing(bool newDoneDrawing);
 
 
-
+    void setPenStyle(Qt::PenStyle newPenStyle);
 
 private:
 
@@ -46,14 +47,13 @@ private:
     QPoint stopPoint;
     QColor color;
     bool outline;
+    bool doneDrawing = true;
 
-
+    Qt::PenStyle penStyle;
 
 };
 
 #endif // GRAPHOBJ_H
-
-
 
 
 

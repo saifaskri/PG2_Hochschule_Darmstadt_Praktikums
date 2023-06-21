@@ -58,19 +58,7 @@ void Canvas::paintEvent(QPaintEvent *event)
         obj->draw(painter);
     }
 
-    // white background (inside parent's border)
-    //painter.fillRect(QRect(1, 1, width() - 2, height() - 2), Qt::white);
 
-    // TODO; implement drawing functionality for all the primitives!
-    // The following is just a basic example and to be removed...
-    /*
-    painter.setPen(QPen(Qt::red, 2, Qt::SolidLine));
-    painter.drawLine(QPoint(2, height()/2), QPoint(width()-2, height()/2));
-    painter.drawLine(QPoint(width()/2, 2), QPoint(width()/2, height()-2));
-    painter.setPen(Qt::blue);
-    painter.setBrush(Qt::darkGreen);
-    painter.drawEllipse(QPoint(width()/2, height()/2), 8, 8);
-    */
 }
 
 void Canvas::resizeEvent(QResizeEvent *event) 

@@ -14,7 +14,7 @@ Paint::Paint(QWidget *parent): QWidget(parent)
 	// instantiate Canvas and button
 	viewport = new Canvas();
 
-	btnClearCanvas = new QPushButton("&Clear Canvas");
+    btnClearCanvas = new QPushButton("&Clear Canvas");
 
     cobPrimModes = new QComboBox();
     cobPrimModes->addItem(tr("None"), Canvas::NONE);
@@ -22,19 +22,17 @@ Paint::Paint(QWidget *parent): QWidget(parent)
     cobPrimModes->addItem(tr("Freehand"), Canvas::FREE_HAND);
     cobPrimModes->addItem(tr("Circle"), Canvas::CIRCLE);
     cobPrimModes->addItem(tr("Rectangle"), Canvas::RECTANGLE);
-    cobPrimModes->addItem(tr("Triangle"), Canvas::TRIANGLE);
+    //cobPrimModes->addItem(tr("Triangle"), Canvas::TRIANGLE);
     //cobPrimModes->addItem(tr("Polygon"), Canvas::POLYGON);
-
 	lblPrimModes = new QLabel("Primitive Mode");
 	lblPrimModes->setBuddy(cobPrimModes);
 
     btnDeleteObj = new QPushButton("&Delete Selected");
     btnDeleteObj->setDisabled(false);
-    btnChangeCol = new QPushButton("C&hange Color");
+    btnChangeCol = new QPushButton("&Change Color");
 
     cbOutline = new QCheckBox("Show Only &Outline", this);
     BBox = new QCheckBox("Show BBox", this);
-
 
 
 
@@ -71,6 +69,16 @@ Paint::Paint(QWidget *parent): QWidget(parent)
 
 
 
+    changeBackGroundColorCanva = new QPushButton("change View Color");
+
+    cobLineType = new QComboBox();
+    cobLineType->addItem(tr("Normal"), Canvas::LineType::NORMAL);
+    cobLineType->addItem(tr("Dached"), Canvas::LineType::DASHED);
+
+    lblLineType = new QLabel("Line Type");
+    lblLineType->setBuddy(cobLineType);
+
+
 
 	// create layout and add gui elements to it
 	QGridLayout *mainLayout = new QGridLayout;
@@ -87,6 +95,11 @@ Paint::Paint(QWidget *parent): QWidget(parent)
 
     mainLayout->addWidget(btnClearCanvas,3, 3);
     mainLayout->addWidget(BBox,      3, 2, Qt::AlignRight);
+
+    mainLayout->addWidget(changeBackGroundColorCanva,     4,0);
+
+    mainLayout->addWidget(lblLineType,   4, 2,Qt::AlignRight);
+    mainLayout->addWidget(cobLineType,   4, 3);
 
     //mainLayout->addWidget(btnDeleteObj,   2, 0);
 
@@ -115,7 +128,13 @@ Paint::Paint(QWidget *parent): QWidget(parent)
     // connect groupButton to toggle action event handler
     connect(action, QOverload<QAbstractButton*>::of(&QButtonGroup::buttonClicked),
             this, &Paint::groupBoxChanged);
+    // connect button click event to color chooser handler
+    connect(changeBackGroundColorCanva, SIGNAL(clicked()),
+            this, SLOT(colorBtnPressedForCanva()));
 
+    // connect list view to primitive changed event handler
+    connect(cobLineType, SIGNAL(activated(int)),
+            this, SLOT(changeLineType()));
 }
 
 /** d'tor */
@@ -149,6 +168,15 @@ void Paint::deleteBtnPressed()
 
 
 }
+void Paint::colorBtnPressedForCanva(){
+
+    QColor color = QColorDialog::getColor(Qt::yellow, this );
+    if (color.isValid()) {
+        //set color from the GUI
+        viewport->setCanvaBackgroundColor(color);
+    }
+
+}
 
 void Paint::colorBtnPressed(){
 
@@ -179,8 +207,15 @@ void Paint::groupBoxChanged()
 }
 
 void Paint::primModeChanged(){
-	int mode = cobPrimModes->itemData(cobPrimModes->currentIndex(), Qt::UserRole).toInt();
-	viewport->setPrimitiveMode(mode);
+    int mode = cobPrimModes->itemData(cobPrimModes->currentIndex(), Qt::UserRole).toInt();
+    viewport->setPrimitiveMode(mode);
     qDebug() << "Primitive Mode changed to " << mode;
+}
+
+
+void Paint::changeLineType(){
+    int mode = cobLineType->itemData(cobLineType->currentIndex(), Qt::UserRole).toInt();
+    viewport->setLinetype(mode);
+
 }
 

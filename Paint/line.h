@@ -9,7 +9,10 @@ class Line : public GraphObj{
 
 public:
     Line();
+    Line(const Line& graph) ;
+    Line& operator=(const Line& graph)  ;
     virtual ~Line();
+
     void draw(QPainter &painter);
     void move(QPoint vector);
     bool checkTheSelectedShape(QPoint p);

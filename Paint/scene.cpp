@@ -6,6 +6,28 @@ Scene::Scene(){
 
 }
 
+Scene::Scene(const Scene &scene) {
+
+    for (int i = 0; (size_t)i < scene.AllShape.size(); ++i)
+        this->AllShape[i] = scene.AllShape[i];
+
+}
+
+Scene &Scene::operator=(const Scene &scene){
+
+    this->setSelectedIndex(scene.getSelectedIndex());
+    // check if the Operation is a = a then do nothing ;
+    //but a = b ; is okey
+    if (this != &scene) {
+        for (int i = 0; (size_t)i < scene.AllShape.size(); ++i){
+            GraphObj* currObj = scene.AllShape[i];
+            this->AllShape.push_back(currObj);
+        }
+    }
+    return *this;
+}
+
+
 Scene::~Scene()
 {
     for(int i = 0; i < (int)AllShape.size(); i++){

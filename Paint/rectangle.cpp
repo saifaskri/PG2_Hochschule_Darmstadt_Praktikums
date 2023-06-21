@@ -7,6 +7,18 @@ Rectangle::Rectangle(){
     height =  getStopPoint().y() - getStartPoint().y()  ;
 }
 
+Rectangle::Rectangle(const Rectangle &graph){
+    this->setStartPoint(graph.getStartPoint());
+    this->setStopPoint( graph.getStopPoint());
+    this->setColor(graph.getColor());
+    this->setOutline(graph.getOutline());
+}
+
+Rectangle &Rectangle::operator=(const Rectangle &graph)
+{
+    return *this;
+}
+
 Rectangle::~Rectangle(){
 
 }

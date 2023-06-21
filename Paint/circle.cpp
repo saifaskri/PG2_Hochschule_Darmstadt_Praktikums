@@ -5,6 +5,17 @@ Circle::Circle(){
     diameter = std::sqrt( (getStartPoint().x()-getStopPoint().x()) * (getStartPoint().x()-getStopPoint().x()) +  (getStartPoint().y()-getStopPoint().y()) * (getStartPoint().y()-getStopPoint().y()) );
 }
 
+Circle::Circle(const Circle &graph){
+    this->setStartPoint(graph.getStartPoint());
+    this->setStopPoint( graph.getStopPoint());
+    this->setColor(graph.getColor());
+    this->setOutline(graph.getOutline());
+}
+
+Circle &Circle::operator=(const Circle &graph){
+    return *this;
+}
+
 Circle::~Circle(){
 
 }

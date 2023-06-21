@@ -8,6 +8,10 @@ class Rectangle : public GraphObj{
 
 public:
     Rectangle();
+
+    Rectangle(const Rectangle& graph) ;
+    Rectangle &operator=(const Rectangle& graph)  ;
+
     virtual ~Rectangle();
     void draw(QPainter &painter);
     void move(QPoint vector);

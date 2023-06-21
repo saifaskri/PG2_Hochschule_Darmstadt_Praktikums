@@ -104,6 +104,7 @@ struct Person {
 };
 
 int main2() {
+
     // Writing to a binary file
     std::ofstream outFile(PROJECT_PATH+"persons.bin", std::ios::binary | std::ios::out);
     if (!outFile) {

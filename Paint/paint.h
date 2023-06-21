@@ -33,6 +33,10 @@ private slots:
 	void clearBtnPressed();
     void deleteBtnPressed();
     void colorBtnPressed();
+
+    void colorBtnPressedForCanva();
+    void changeLineType();
+
 	void primModeChanged();
     void showOutlineOnly(bool);
     void BBoxPressed(bool bbox);
@@ -58,6 +62,10 @@ private:
     QRadioButton* moving ;
 
     QButtonGroup *action;
+
+    QPushButton *changeBackGroundColorCanva;
+    QComboBox *cobLineType;
+    QLabel *lblLineType;
 
 };
 

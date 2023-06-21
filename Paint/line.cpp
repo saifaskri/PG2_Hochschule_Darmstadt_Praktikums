@@ -6,6 +6,20 @@ Line::Line(){
 
 }
 
+Line::Line(const Line &graph){
+    this->setStartPoint(graph.getStartPoint());
+    this->setStopPoint( graph.getStopPoint());
+    this->setColor(graph.getColor());
+    this->setOutline(graph.getOutline());
+}
+
+Line &Line::operator=(const Line &graph){
+
+return *this;
+}
+
+
+
 Line::~Line(){
 
 }

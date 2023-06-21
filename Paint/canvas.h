@@ -12,6 +12,7 @@
 
 #include "graphobj.h"
 #include "scene.h"
+#include "triangle.h"
 
 class Canvas : public QFrame
 {
@@ -25,6 +26,7 @@ public:
 
     enum InteractionMode{ CREAT, DEL, COL, TRAFO };
 
+    enum LineType{ NORMAL , DASHED };
 
 	Canvas(QWidget *parent = 0);
 	~Canvas();
@@ -57,7 +59,13 @@ public:
     void Coloring(QMouseEvent *event);
     void Move(QPoint startPoint, QPoint endPoint);
 
+    std::vector<StratStopPoints*> TriangleBuffer;
 
+
+    QColor getCanvaBackgroundColor() const;
+    void setCanvaBackgroundColor(const QColor &newCanvaBackgroundColor);
+
+    void setLinetype(int newLinetype);
 
 protected:
 	void paintEvent(QPaintEvent *event);
@@ -79,7 +87,11 @@ private:
 
     QColor lastColorOfSelectedShap;
 
+    QColor canvaBackgroundColor = Qt::white;
+
     InteractionMode oparation ;
+
+    LineType linetype = LineType::NORMAL;
 
     QPoint startPoint;
     QPoint StopPoint;

@@ -10,11 +10,16 @@ bool CheckIfShapeIsAcceptable(GraphObj *obj){
     FreeHand* freeHandObj;
     if( (freeHandObj = dynamic_cast<FreeHand*>(obj)) ){return true;}
 
+    // triangle  is allways true
+    Triangle* tri;
+    if ( (tri = dynamic_cast<Triangle*>(obj)) ) {return true;}
+
     int length = std::sqrt( (obj->getStartPoint().x() - obj->getStopPoint().x()) *
                             (obj->getStartPoint().x() - obj->getStopPoint().x()) +
                             (obj->getStartPoint().y() - obj->getStopPoint().y()) *
                             (obj->getStartPoint().y() - obj->getStopPoint().y()) );
     if(length > 20) return true;
+
     else return false;
 }
 
@@ -51,6 +56,10 @@ void Canvas::setPrimitiveMode(int mode){
 void Canvas::paintEvent(QPaintEvent *event){
     QFrame::paintEvent(event);  // parent class draws border
     QPainter painter(this);
+    // Set the background color
+
+    painter.fillRect(rect(), this->canvaBackgroundColor);
+
     // draw all old Shapes
     scene->draw(painter);
     //draw the new Shape
@@ -58,6 +67,7 @@ void Canvas::paintEvent(QPaintEvent *event){
 }
 
 void Canvas::Create(QMouseEvent *event){
+
 
     switch (type) {
     case LINE:
@@ -87,7 +97,15 @@ void Canvas::Create(QMouseEvent *event){
        shape->setStopPoint(event->pos());
        shape->setColor(color);
        shape->setOutline(outline);
+
+       if(linetype == LineType::DASHED){
+           shape->setPenStyle(Qt::PenStyle::DashDotLine);
+
+       }else{
+           shape->setPenStyle(Qt::PenStyle::SolidLine);
+       }
     }
+
 }
 
 void Canvas::Delete(QMouseEvent *event){
@@ -108,12 +126,16 @@ void Canvas::Move(QPoint startPoint, QPoint endPoint ){
 void Canvas::mousePressEvent(QMouseEvent *event){
 
     if (event->button() == Qt::LeftButton) {
+
         dragging = true;
 
+        // set The Points for the class Canvas (falls wir sie brauchen)
         this->startPoint = event->pos();
+        this->StopPoint = event->pos();
+
         switch (oparation) {
             case CREAT:
-                Create(event);
+                 Create(event);
                 break;
             case DEL:
                 Delete(event);
@@ -122,9 +144,6 @@ void Canvas::mousePressEvent(QMouseEvent *event){
                 Coloring(event);
                 break;
             case TRAFO:
-
-                this->startPoint = event->pos();
-                this->StopPoint = event->pos();
                 //set The Object that was selected
                 scene->setSelectedIndex(scene->selectObj(event->pos()));
                 Move( this->startPoint, this->StopPoint);
@@ -144,17 +163,18 @@ void Canvas::mouseMoveEvent(QMouseEvent *event){
         if(oparation == CREAT){
             if(shape == nullptr){return;}
             shape->setStopPoint(event->pos());
+
             if(type == FREE_HAND && oparation == CREAT){
                 koordinate *k = new koordinate(shape->getStartPoint(),event->pos());
                 FreeHand* freeHandObj = dynamic_cast<FreeHand*>(shape);
                 freeHandObj->pointHestory.push_back(k);
                 shape->setStartPoint(event->pos());
             }
+
         }else if(oparation == TRAFO){
             this->StopPoint = event->pos();
             Move(this->startPoint,this->StopPoint);
             this->startPoint = event->pos();
-
         }
 
         update();
@@ -163,25 +183,61 @@ void Canvas::mouseMoveEvent(QMouseEvent *event){
 }
 
 void Canvas::mouseReleaseEvent(QMouseEvent *event){
+
     if (event->button() == Qt::LeftButton && dragging) {
         dragging = false;
+
+
         //Create
         if(shape != nullptr && type != NONE){
            shape->setStopPoint(event->pos());
            //Save Shape but need more Contorlle for how much big is my shape
            if(CheckIfShapeIsAcceptable(shape)){
-               scene->AddShape(shape);
-               shape = nullptr;
+              scene->AddShape(shape);
+              shape = nullptr;
            }
         }
+
         if(oparation == TRAFO){
             this->StopPoint = event->pos();
             Move(this->startPoint,this->StopPoint);
             //reinitial The Object that was selected to -1
             scene->setSelectedIndex(-1);
         }
+
         update();
+
+//        Triangle* tri;
+//        if ((tri = dynamic_cast<Triangle*>(shape))){
+
+//            //if no Point yet
+//            if(tri->lineList.size() == 0){
+//                StratStopPoints *p = new StratStopPoints(this->startPoint,this->StopPoint);
+//                tri->lineList.push_back(p);
+//            }else{
+//                StratStopPoints *bp = new StratStopPoints(tri->lineList[0]->stopPoint,this->StopPoint);
+//                tri->lineList.push_back(bp);
+//            }
+//        }
+
+
     }
+}
+
+
+void Canvas::setLinetype(int newLinetype)
+{
+    linetype = (Canvas::LineType) newLinetype;
+}
+
+QColor Canvas::getCanvaBackgroundColor() const
+{
+    return canvaBackgroundColor;
+}
+
+void Canvas::setCanvaBackgroundColor(const QColor &newCanvaBackgroundColor)
+{
+    canvaBackgroundColor = newCanvaBackgroundColor;
 }
 
 void Canvas::setOparation(InteractionMode newOparation){

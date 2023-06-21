@@ -18,7 +18,11 @@ struct koordinate{
 class FreeHand : public GraphObj{
 public:
     FreeHand();
+
+    FreeHand(const FreeHand& graph) ;
+    FreeHand &operator=(const FreeHand& graph)  ;
     virtual ~FreeHand();
+
     void draw(QPainter &painter);
     void move(QPoint vector);
     bool checkTheSelectedShape(QPoint);
