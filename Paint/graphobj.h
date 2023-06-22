@@ -6,6 +6,8 @@
 #include <QPainter>
 
 #define FONTSIZE 3
+#define BboxSize 3
+
 
 class GraphObj
 {
@@ -15,13 +17,17 @@ public:
 
     GraphObj(const GraphObj& graph) = delete ;
     GraphObj& operator=(const GraphObj& graph) = delete  ;
+
     virtual ~GraphObj();
 
     virtual void draw(QPainter &painter) = 0;
     virtual void move(QPoint vector) = 0;
     virtual bool checkTheSelectedShape(QPoint) = 0 ;
-    void setBrushForTheObject(QPainter &painter);
     virtual bool drawingIsDone();
+    virtual void drawBBox(QPainter &painter)= 0;
+    virtual void calcBBox(QPoint &min, QPoint &max) const = 0;
+
+    void setBrushForTheObject(QPainter &painter);
 
     QPoint getStopPoint() const;
     void setStopPoint(QPoint newStopPoint);
@@ -41,6 +47,11 @@ public:
 
     void setPenStyle(Qt::PenStyle newPenStyle);
 
+
+
+    int getFontSize() const;
+    void setFontSize(int newFontSize);
+
 private:
 
     QPoint startPoint;
@@ -48,8 +59,8 @@ private:
     QColor color;
     bool outline;
     bool doneDrawing = true;
-
     Qt::PenStyle penStyle;
+    int fontSize = 5;
 
 };
 

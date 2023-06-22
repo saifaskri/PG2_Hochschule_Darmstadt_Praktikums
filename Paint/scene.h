@@ -7,6 +7,7 @@
 #include <QColor>
 
 #include"graphobj.h"
+#include "bboxdecorator.h"
 
 
 class Scene
@@ -20,6 +21,8 @@ public:
     ~Scene();
 
     void draw(QPainter &painter);
+    void drawBBox(QPainter &painter);
+
     void deleteShape(QMouseEvent *event);
     void AddShape(GraphObj* obj);
     void DeleteAllShape();
@@ -34,8 +37,10 @@ public:
     void setSelectedIndex(int newSelectedIndex);
     std::vector<GraphObj *> AllShape;
 
+
 private:
     int SelectedIndex = -1 ;
+
 
 };
 

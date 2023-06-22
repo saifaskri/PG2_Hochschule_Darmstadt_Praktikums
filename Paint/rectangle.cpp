@@ -23,6 +23,22 @@ Rectangle::~Rectangle(){
 
 }
 
+void Rectangle::drawBBox(QPainter &painter){
+    // change later if i will work with new
+    int width =   (getStopPoint().x() - getStartPoint().x()) ;
+    int height =  (getStopPoint().y() - getStartPoint().y())  ;
+    // Set brush color using hexadecimal value
+    painter.setPen(QPen(Qt::red, BboxSize , Qt::DashLine));
+    painter.setBrush(Qt::NoBrush);
+    painter.drawRect(getStartPoint().x(),getStartPoint().y(), width, height);
+
+}
+
+void Rectangle::calcBBox(QPoint &min, QPoint &max) const{
+    min = getStopPoint();
+    max = getStartPoint();
+}
+
 void Rectangle::draw(QPainter &painter){
 
 
@@ -75,6 +91,8 @@ bool Rectangle::checkTheSelectedShape(QPoint p){
         return(p.x() <= getStartPoint().x() &&p.x() >= getStopPoint().x() );  
 
 }
+
+
 
 int Rectangle::getWidth() const
 {

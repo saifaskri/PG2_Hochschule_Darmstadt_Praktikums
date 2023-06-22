@@ -1,8 +1,10 @@
 #include "line.h"
+#include "rectangle.h"
 #include <iostream>
 
 
 Line::Line(){
+     r = new Rectangle();
 
 }
 
@@ -16,6 +18,7 @@ Line::Line(const Line &graph){
 Line &Line::operator=(const Line &graph){
 
 return *this;
+
 }
 
 
@@ -24,11 +27,33 @@ Line::~Line(){
 
 }
 
+void Line::drawBBox(QPainter &painter){
+
+    // change later if i will work with new
+    int width =   (getStopPoint().x() - getStartPoint().x()) ;
+    int height =  (getStopPoint().y() - getStartPoint().y())  ;
+    // Set brush color using hexadecimal value
+    painter.setPen(QPen(Qt::red, BboxSize , Qt::DashLine));
+    painter.setBrush(Qt::NoBrush);
+    painter.drawRect(getStartPoint().x(),getStartPoint().y(), width, height);
+
+}
+
+void Line::calcBBox(QPoint &min, QPoint &max) const{
+
+    min = getStopPoint();
+    max = getStartPoint();
+
+}
+
 void Line::draw(QPainter &painter){
+
+
+
+
 
     // Set brush color using hexadecimal value
     setBrushForTheObject(painter);
-
     painter.drawLine(getStartPoint(), getStopPoint());
 
 }

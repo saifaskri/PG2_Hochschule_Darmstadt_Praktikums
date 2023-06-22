@@ -69,11 +69,17 @@ Paint::Paint(QWidget *parent): QWidget(parent)
 
 
 
-    changeBackGroundColorCanva = new QPushButton("change View Color");
+    changeBackGroundColorCanva = new QPushButton("Change View Color");
 
     cobLineType = new QComboBox();
-    cobLineType->addItem(tr("Normal"), Canvas::LineType::NORMAL);
-    cobLineType->addItem(tr("Dached"), Canvas::LineType::DASHED);
+    cobLineType->addItem(tr("SolidLine"), Canvas::LineType::SolidLine);
+    cobLineType->addItem(tr("MPenStyle"), Canvas::LineType::MPenStyle);
+    cobLineType->addItem(tr("DashLine"), Canvas::LineType::DashLine);
+    cobLineType->addItem(tr("DashDotDotLine"), Canvas::LineType::DashDotDotLine);
+    cobLineType->addItem(tr("DotLine"), Canvas::LineType::DotLine);
+    cobLineType->addItem(tr("CustomDashLine"), Canvas::LineType::CustomDashLine);
+
+
 
     lblLineType = new QLabel("Line Type");
     lblLineType->setBuddy(cobLineType);
@@ -131,7 +137,6 @@ Paint::Paint(QWidget *parent): QWidget(parent)
     // connect button click event to color chooser handler
     connect(changeBackGroundColorCanva, SIGNAL(clicked()),
             this, SLOT(colorBtnPressedForCanva()));
-
     // connect list view to primitive changed event handler
     connect(cobLineType, SIGNAL(activated(int)),
             this, SLOT(changeLineType()));
@@ -190,13 +195,13 @@ void Paint::colorBtnPressed(){
 }
 
 void Paint::showOutlineOnly(bool outline){
-    qDebug() << "Only show outline: " << outline;
     viewport->setOutline(!viewport->getOutline());
 }
 
 void Paint::BBoxPressed(bool bbox)
 {
-    qDebug() << "BBox : " << bbox;
+    viewport->setBBox(!viewport->getBBox());
+    update();
 }
 
 void Paint::groupBoxChanged()
@@ -211,7 +216,6 @@ void Paint::primModeChanged(){
     viewport->setPrimitiveMode(mode);
     qDebug() << "Primitive Mode changed to " << mode;
 }
-
 
 void Paint::changeLineType(){
     int mode = cobLineType->itemData(cobLineType->currentIndex(), Qt::UserRole).toInt();

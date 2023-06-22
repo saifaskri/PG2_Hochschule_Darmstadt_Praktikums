@@ -16,6 +16,8 @@ public:
     void draw(QPainter &painter);
     void move(QPoint vector);
     bool checkTheSelectedShape(QPoint p);
+    void drawBBox(QPainter &painter);
+    void calcBBox(QPoint &min, QPoint &max) const ;
 
 
     int getWidth() const;

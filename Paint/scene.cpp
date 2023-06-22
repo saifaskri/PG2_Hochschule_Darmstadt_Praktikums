@@ -3,13 +3,13 @@
 #include <ostream>
 
 Scene::Scene(){
-
 }
 
 Scene::Scene(const Scene &scene) {
 
-    for (int i = 0; (size_t)i < scene.AllShape.size(); ++i)
+    for (int i = 0; (size_t)i < scene.AllShape.size(); ++i){
         this->AllShape[i] = scene.AllShape[i];
+    }
 
 }
 
@@ -40,7 +40,13 @@ void Scene::draw(QPainter &painter)
     for(int i = 0; i < (int)AllShape.size(); i++){
         AllShape[i]->draw(painter);
     }
+}
 
+void Scene::drawBBox(QPainter &painter)
+{
+    for(int i = 0; i < (int)AllShape.size(); i++){
+        AllShape[i]->drawBBox(painter);
+    }
 }
 
 void Scene::deleteShape(QMouseEvent *event){

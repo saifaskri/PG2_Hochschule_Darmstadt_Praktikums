@@ -10,6 +10,8 @@ public:
     Circle();
     Circle(const Circle &graph) ;
     Circle &operator=(const Circle& graph);
+    void drawBBox(QPainter &painter);
+    void calcBBox(QPoint &min, QPoint &max) const ;
 
      ~Circle();
 

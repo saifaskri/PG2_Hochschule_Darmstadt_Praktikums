@@ -13,8 +13,7 @@ HEADERS += paint.h \
            graphobj.h \
            line.h \
            rectangle.h \
-           scene.h \
-           triangle.h
+           scene.h
 SOURCES += paint.cpp \
            bboxdecorator.cpp \
            canvas.cpp \
@@ -24,5 +23,4 @@ SOURCES += paint.cpp \
            line.cpp \
            main.cpp \
            rectangle.cpp \
-           scene.cpp \
-           triangle.cpp
+           scene.cpp

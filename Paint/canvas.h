@@ -12,7 +12,6 @@
 
 #include "graphobj.h"
 #include "scene.h"
-#include "triangle.h"
 
 class Canvas : public QFrame
 {
@@ -20,13 +19,11 @@ class Canvas : public QFrame
 
 public:
 
-	enum PrimitiveMode {
-        NONE, FREE_HAND, CIRCLE, LINE, TRIANGLE, RECTANGLE, POLYGON
-	};
+	enum PrimitiveMode {NONE, FREE_HAND, CIRCLE, LINE, TRIANGLE, RECTANGLE, POLYGON};
 
     enum InteractionMode{ CREAT, DEL, COL, TRAFO };
 
-    enum LineType{ NORMAL , DASHED };
+    enum LineType{ CustomDashLine , DotLine, DashDotDotLine, DashLine, MPenStyle, SolidLine };
 
 	Canvas(QWidget *parent = 0);
 	~Canvas();
@@ -59,13 +56,13 @@ public:
     void Coloring(QMouseEvent *event);
     void Move(QPoint startPoint, QPoint endPoint);
 
-    std::vector<StratStopPoints*> TriangleBuffer;
-
-
     QColor getCanvaBackgroundColor() const;
     void setCanvaBackgroundColor(const QColor &newCanvaBackgroundColor);
 
     void setLinetype(int newLinetype);
+
+    bool getBBox() const;
+    void setBBox(bool newBBox);
 
 protected:
 	void paintEvent(QPaintEvent *event);
@@ -83,6 +80,7 @@ private:
 
     Scene* scene;
     GraphObj *shape ;
+    GraphObj *bbox ;
 
 
     QColor lastColorOfSelectedShap;
@@ -91,10 +89,12 @@ private:
 
     InteractionMode oparation ;
 
-    LineType linetype = LineType::NORMAL;
+    LineType linetype = LineType::SolidLine;
 
     QPoint startPoint;
     QPoint StopPoint;
+
+    bool BBox = false;
 
 
 };

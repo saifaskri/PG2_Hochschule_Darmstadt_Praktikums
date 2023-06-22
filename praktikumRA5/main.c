@@ -62,10 +62,11 @@ unsigned int index(unsigned int row, unsigned int col){
 
 void show(char f[1000])
 {
-    static int generation = 0;
+    static int generation = 0; 
     unsigned int r, c;
 
     printf("Generation %d:\n",generation++);
+    
     for (r=0; r<20; r++)
     {
         for (c=0; c<50; c++)
@@ -74,10 +75,116 @@ void show(char f[1000])
         }
         putchar('\n');
     }
-    putchar('\n');
+    
+   //end for loop 1
+   putchar('\n');
+    
+MOV R0 , #0 @ nothing;
+MOV R1 , #0 @ static int generation = 0; 
+MOV R2 , #0 @ int r; 
+MOV R3 , #0 @ int c; 
+ADD R1 , #1 @ printf("Generation %d:\n",generation++);
+
+show:
+    MOV R2 , #0   @ r = 0; 
+    for_loop_1:   
+        CMP R2 , #20  @ r<20
+        BGE end_show     
+    MOV R3 , #0     @ int c;
+    for_loop_2:  
+             
+       
+end_show: 
+   
+   
+   
+   
+   
+   
+   
+
+//   @ Datenbereich
+//       .data
+//   generation: .byte 0
+   
+//   @ Textbereich
+//       .text
+//       .global _start
+   
+//   _start:
+//       @ Drucke "Generation <generation>:"
+//       ldr r0, =generation
+//       ldrb r1, [r0]
+//       add r1, r1, #'0'  @ Umwandlung der Zahl in ASCII-Code
+//       ldr r2, =generation_str
+//       ldr r3, =13
+//       bl printf
+   
+//       @ Initialisiere Schleifenvariablen
+//       mov r4, #0  @ r = 0
+   
+//   outer_loop:
+//       cmp r4, #20
+//       bge exit_program
+   
+//       @ Initialisiere innere Schleifenvariablen
+//       mov r5, #0  @ c = 0
+   
+//   inner_loop:
+//       cmp r5, #50
+//       bge next_row
+   
+//       @ Bestimme Index im Array
+//       push {r5, r4}
+//       bl index
+//       add sp, sp, #8
+   
+//       @ Überprüfe Bedingung und drucke Zeichen
+//       ldrb r6, [r0, r7]
+//       cmp r6, #0
+//       beq print_dot
+//       mov r0, #'*'
+//       b print_char
+   
+//   print_dot:
+//       mov r0, #'.'
+   
+//   print_char:
+//       mov r1, #1
+//       bl putchar
+   
+//       @ Inkrementiere c
+//       add r5, r5, #1
+//       b inner_loop
+   
+//   next_row:
+//       @ Drucke Zeilenumbruch
+//       ldr r0, =newline
+//       ldr r1, =1
+//       bl printf
+   
+//       @ Inkrementiere r
+//       add r4, r4, #1
+//       b outer_loop
+   
+//   exit_program:
+//       @ Beende das Programm
+//       mov r0, #0
+//       mov r7, #1
+//       swi 0
+   
+//       .data
+//   generation_str: .asciz "Generation 0:"
+//   newline:        .asciz "\n"
+    
+    
+    
 }
 
 
+unsigned int index(unsigned int row, unsigned int col){
+    return row*50+col;
+}
 
 char neighborsC(char f[1000], unsigned int r, unsigned int c){
     char result=0;

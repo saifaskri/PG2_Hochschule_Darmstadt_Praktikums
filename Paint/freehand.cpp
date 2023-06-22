@@ -44,6 +44,87 @@ FreeHand &FreeHand::operator=(const FreeHand &graph)
 FreeHand::~FreeHand(){
 }
 
+void FreeHand::drawBBox(QPainter &painter){
+
+//    int Ymin = pointHestory[0]->startPoint.y();
+//    int Ymax = pointHestory[0]->startPoint.y();
+//    int Xmin = pointHestory[0]->startPoint.x();
+//    int Xmax = pointHestory[0]->startPoint.x();
+
+//    for(auto pt : pointHestory){
+
+//        if( pt->stopPoint.y() > Ymax ){
+//          Ymax = pt->stopPoint.y();
+//        }
+
+//        if( pt->stopPoint.y() < Ymin ){
+//          Ymin = pt->stopPoint.y();
+//        }
+
+//        if( pt->stopPoint.x() > Xmax ){
+//          Xmax = pt->stopPoint.x();
+//        }
+
+//        if( pt->stopPoint.x() < Xmin ){
+//          Xmin = pt->stopPoint.x();
+//        }
+//    }
+
+//    QPoint startpoint;
+//    startpoint.setX(Xmin);
+//    startpoint.setY(Ymin);
+
+//    QPoint stopPoint;
+//    stopPoint.setX(Xmax);
+//    stopPoint.setY(Ymax);
+
+//    // change later if i will work with new
+//    int width =   (stopPoint.x() - startpoint.x()) ;
+//    int height =  (stopPoint.y() - startpoint.y())  ;
+//    // Set brush color using hexadecimal value
+//    painter.setPen(QPen(Qt::red, BboxSize , Qt::DashLine));
+//    painter.setBrush(Qt::NoBrush);
+//    painter.drawRect(startpoint.x(),startpoint.y(), width, height);
+
+
+
+}
+
+void FreeHand::calcBBox(QPoint &min, QPoint &max) const{
+
+    int Ymin = pointHestory[0]->startPoint.y();
+    int Ymax = pointHestory[0]->startPoint.y();
+    int Xmin = pointHestory[0]->startPoint.x();
+    int Xmax = pointHestory[0]->startPoint.x();
+
+    for(auto pt : pointHestory){
+
+        if( pt->stopPoint.y() > Ymax ){
+          Ymax = pt->stopPoint.y();
+        }
+
+        if( pt->stopPoint.y() < Ymin ){
+          Ymin = pt->stopPoint.y();
+        }
+
+        if( pt->stopPoint.x() > Xmax ){
+          Xmax = pt->stopPoint.x();
+        }
+
+        if( pt->stopPoint.x() < Xmin ){
+          Xmin = pt->stopPoint.x();
+        }
+    }
+
+    min.setX(Xmin);
+    min.setY(Ymin);
+
+    max.setX(Xmax);
+    max.setY(Ymax);
+
+
+}
+
 void FreeHand::draw(QPainter &painter){
     // Set brush color using hexadecimal value
     setBrushForTheObject(painter);

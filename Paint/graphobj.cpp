@@ -73,7 +73,7 @@ void GraphObj::setBrushForTheObject(QPainter &painter)
 {
     // Set brush color using hexadecimal value
 
-    painter.setPen(QPen(getColor(), FONTSIZE , penStyle));
+    painter.setPen(QPen(getColor(), fontSize , penStyle));
 
     if(!getOutline()){
         painter.setBrush(Qt::NoBrush);
@@ -100,6 +100,16 @@ void GraphObj::setDoneDrawing(bool newDoneDrawing){
 void GraphObj::setPenStyle(Qt::PenStyle newPenStyle)
 {
     penStyle = newPenStyle;
+}
+
+int GraphObj::getFontSize() const
+{
+    return fontSize;
+}
+
+void GraphObj::setFontSize(int newFontSize)
+{
+    fontSize = newFontSize;
 }
 
 

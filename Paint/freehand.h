@@ -22,6 +22,8 @@ public:
     FreeHand(const FreeHand& graph) ;
     FreeHand &operator=(const FreeHand& graph)  ;
     virtual ~FreeHand();
+    void drawBBox(QPainter &painter);
+    void calcBBox(QPoint &min, QPoint &max) const ;
 
     void draw(QPainter &painter);
     void move(QPoint vector);

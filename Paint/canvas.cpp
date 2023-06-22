@@ -3,16 +3,13 @@
 #include "line.h"
 #include "circle.h"
 #include "rectangle.h"
-#include "triangle.h"
 
 bool CheckIfShapeIsAcceptable(GraphObj *obj){
     // Free hand is allways true
     FreeHand* freeHandObj;
     if( (freeHandObj = dynamic_cast<FreeHand*>(obj)) ){return true;}
 
-    // triangle  is allways true
-    Triangle* tri;
-    if ( (tri = dynamic_cast<Triangle*>(obj)) ) {return true;}
+
 
     int length = std::sqrt( (obj->getStartPoint().x() - obj->getStopPoint().x()) *
                             (obj->getStartPoint().x() - obj->getStopPoint().x()) +
@@ -62,8 +59,12 @@ void Canvas::paintEvent(QPaintEvent *event){
 
     // draw all old Shapes
     scene->draw(painter);
+    //if Bbox true Draw it
+    if(this->BBox){ scene->drawBBox(painter);}
     //draw the new Shape
-    if(shape != nullptr){shape->draw(painter);}
+    if(shape != nullptr){shape->draw(painter);
+        if(this->BBox){ scene->drawBBox(painter);}
+    }
 }
 
 void Canvas::Create(QMouseEvent *event){
@@ -82,9 +83,6 @@ void Canvas::Create(QMouseEvent *event){
     case FREE_HAND:
         shape = new FreeHand ();
     break;
-    case TRIANGLE:
-        shape = new Triangle();
-    break;
     case NONE:
         shape = nullptr;
     break;
@@ -98,13 +96,24 @@ void Canvas::Create(QMouseEvent *event){
        shape->setColor(color);
        shape->setOutline(outline);
 
-       if(linetype == LineType::DASHED){
-           shape->setPenStyle(Qt::PenStyle::DashDotLine);
-
-       }else{
+       if(linetype == LineType::CustomDashLine){
+           shape->setPenStyle(Qt::PenStyle::CustomDashLine);
+       }else if(linetype == LineType::DotLine){
+           shape->setPenStyle(Qt::PenStyle::DotLine);
+       }else if(linetype == LineType::DashDotDotLine){
+           shape->setPenStyle(Qt::PenStyle::DashDotDotLine);
+       }else if(linetype == LineType::DashLine){
+           shape->setPenStyle(Qt::PenStyle::DashLine);
+       }else if(linetype == LineType::MPenStyle){
+           shape->setPenStyle(Qt::PenStyle::MPenStyle);
+       }else if(linetype == LineType::SolidLine){
            shape->setPenStyle(Qt::PenStyle::SolidLine);
        }
+
+       bbox = new BBoxDecorator(shape);
     }
+
+
 
 }
 
@@ -193,7 +202,7 @@ void Canvas::mouseReleaseEvent(QMouseEvent *event){
            shape->setStopPoint(event->pos());
            //Save Shape but need more Contorlle for how much big is my shape
            if(CheckIfShapeIsAcceptable(shape)){
-              scene->AddShape(shape);
+              scene->AddShape(bbox);
               shape = nullptr;
            }
         }
@@ -207,21 +216,17 @@ void Canvas::mouseReleaseEvent(QMouseEvent *event){
 
         update();
 
-//        Triangle* tri;
-//        if ((tri = dynamic_cast<Triangle*>(shape))){
-
-//            //if no Point yet
-//            if(tri->lineList.size() == 0){
-//                StratStopPoints *p = new StratStopPoints(this->startPoint,this->StopPoint);
-//                tri->lineList.push_back(p);
-//            }else{
-//                StratStopPoints *bp = new StratStopPoints(tri->lineList[0]->stopPoint,this->StopPoint);
-//                tri->lineList.push_back(bp);
-//            }
-//        }
-
-
     }
+}
+
+bool Canvas::getBBox() const
+{
+    return BBox;
+}
+
+void Canvas::setBBox(bool newBBox)
+{
+    BBox = newBBox;
 }
 
 

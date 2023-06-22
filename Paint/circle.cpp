@@ -16,6 +16,29 @@ Circle &Circle::operator=(const Circle &graph){
     return *this;
 }
 
+void Circle::drawBBox(QPainter &painter){
+
+    // change later if i will work with new
+    int width =   this->diameter * 2 ;
+    int height =  this->diameter * 2 ;
+
+    // Set brush color using hexadecimal value
+    painter.setPen(QPen(Qt::red, BboxSize , Qt::DashLine));
+    painter.setBrush(Qt::NoBrush);
+
+    painter.drawRect(getStartPoint().x()- diameter ,getStartPoint().y()- diameter , width, height);
+
+}
+
+void Circle::calcBBox(QPoint &min, QPoint &max) const{
+
+    min.setX(getStartPoint().x()-diameter);
+    min.setY(getStartPoint().y()-diameter);
+    max.setX(getStartPoint().x()+diameter);
+    max.setY(getStartPoint().y()+diameter);
+
+}
+
 Circle::~Circle(){
 
 }
